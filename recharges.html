@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			ul,li{margin: 0;padding: 0;list-style: none;}
+			.mui-radio input[type=radio]:checked:before {content: '\e442';color:#01CC53 ;}
+			.items{width: 100%;background: #fff;height: 164px;}
+			.price li{float: left;width: 30%;height: 60px;line-height: 60px;margin:20px 0 0px 10px;border: 1px solid #E6E6E6;text-align: center;border-radius: 5px;color: #323232;}
+			.price .active{border: 1px solid #0DBC6D;color: #0DBC6D;}
+			.mui-input-group .mui-input-row:after{height: 0px;}
+			.mui-input-group .mui-input-row{border-bottom: 1px solid #E5E5E5;height: 50px;line-height: 50px;font-size: 16px;color: #232323;}
+			.mui-radio input[type=radio]{top: 10px;}
+			.btn{clear: both;width: 90%;margin:10px 0;height: 48px;line-height: 48px;padding: 0;margin-top:30%;left: 5%;background-color:#02BB82;color: #FFF;font-size: 16px;border: none;}
+			.mui-input-group:after{height: 0;}
+			body{background-color: #FFF;}
+			
+			
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">现金充值</h1>
+		</header>
+		<div class="mui-content">
+		    <form class="mui-input-group">
+		        <div class="items">
+		        	<ul class="price">
+		        		<li class="active">1200元</li>
+		        		<li>3000元</li>
+		        		<li>6000元</li>
+		        		<li>10000元</li>
+		        	</ul>
+		        </div>
+		        <div class="mui-input-row mui-radio">
+					<label style="font-size: 14px;color: #7C7C7C;">请选择支付方式</label>
+		        </div>
+		        <div class="mui-input-row mui-radio">
+					<label>微信支付</label>
+					<input name="radio" type="radio" checked="checked">
+				</div>
+		        <div class="mui-input-row mui-radio">
+					<label>支付宝支付</label>
+					<input name="radio" type="radio">
+				</div>
+				<div class="mui-input-row mui-radio">
+					<label>快捷支付</label>
+					<input name="radio" type="radio">
+				</div>
+				<button type="submit" class="btn">立即支付 &yen;1500</button>
+		    </form>
+		</div>
+		
+	</body>
+	<!--<script type="text/javascript">
+	  	mui.alert("支付成功","你已支付成功","确定",function(){
+	  		
+	  	});
+	</script>-->
+	<script type="text/javascript">		
+		$(function(){
+		    $(".price li").click(function() {
+		        $(this).siblings('li').removeClass('active');  // 删除其兄弟元素的样式
+		        $(this).addClass('active');                    // 为点击元素添加类名
+		    });
+		});
+	</script>
+</html>

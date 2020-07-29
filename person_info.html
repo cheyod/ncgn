@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link href="css/style.css" rel="stylesheet" />-->
+		<link href="css/base.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>
+		<!--<script type="text/javascript" src="js/common.js"></script>-->
+		<style>
+			html,body{background-color:#efeff4}
+			.mui-page{display:block}
+			.mui-views,.mui-view,.mui-pages,.mui-page,.mui-page-content{position:absolute;left:0;right:0;top:0;bottom:0;width:100%;height:100%;background-color:#efeff4}
+			.mui-pages{top:46px;height:auto}
+			.mui-scroll-wrapper,.mui-scroll{background-color:#efeff4}
+			.mui-page.mui-transitioning{-webkit-transition:-webkit-transform 200ms ease;transition:transform 200ms ease}
+			.mui-page-left{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+			.mui-ios .mui-page-left{-webkit-transform:translate3d(-20%,0,0);transform:translate3d(-20%,0,0)}
+			.mui-navbar{position:fixed;right:0;left:0;z-index:10;height:44px;background-color:#f7f7f8}
+			.mui-navbar .mui-bar{position:absolute;background:transparent;text-align:center}
+			.mui-android .mui-navbar-inner.mui-navbar-left{opacity:0}
+			.mui-ios .mui-navbar-left .mui-left,.mui-ios .mui-navbar-left .mui-center,.mui-ios .mui-navbar-left .mui-right{opacity:0}
+			.mui-navbar .mui-btn-nav{-webkit-transition:none;transition:none;-webkit-transition-duration:.0s;transition-duration:.0s}
+			.mui-navbar .mui-bar .mui-title{display:inline-block;position:static;width:auto}
+			.mui-page-shadow{position:absolute;right:100%;top:0;width:16px;height:100%;z-index:-1;content:''}
+			.mui-page-shadow{background:-webkit-linear-gradient(left,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%);background:linear-gradient(to right,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%)}
+			.mui-navbar-inner.mui-transitioning,.mui-navbar-inner .mui-transitioning{-webkit-transition:opacity 200ms ease,-webkit-transform 200ms ease;transition:opacity 200ms ease,transform 200ms ease}
+			.mui-page .mui-table-view:last-child{margin-bottom:30px}
+			.mui-table-view:after{height:0}
+			.mui-table-view span.mui-pull-right{color:#999}
+			.mui-table-view-divider{background-color:#efeff4;font-size:14px}
+			.mui-table-view-divider:before,.mui-table-view-divider:after{height:0}
+			.mui-content-padded{margin:10px 0px}
+			.mui-locker{margin:35px auto;display:none}
+			.mui-table-view-cell img{width:17px;margin-right:10px;vertical-align:text-bottom;}
+			
+
+			.mui-bar .mui-btn .mui-icon{color:#FFF;}
+			.mui-table-view{background:transparent;}
+			.mui-table-view-cell{background:#FFF;}
+			.mui-table-view-cell:after{left:0;}
+			.mui-navigate-right{color:#051b28;}
+			.head-img{height:73px;line-height:50px;}
+			.mui-table-view-cell em{position:absolute!important;right:2px;top:10px;color:#a0a0a0;font-size:14px;}
+			.h46{height:46px;}
+			.a-upload{width:30px;height:63px;line-height:50px;cursor:pointer;color:#888;border-radius:4px;overflow:hidden;display:inline-block;position:absolute!important;top:12px;right:100px;}
+			.a-upload input{position:absolute;font-size:100px;right:0;top:0;opacity:0;filter:alpha(opacity=0);cursor:pointer}
+			.a-upload img{width:50px;height:50px;border-radius:50%;}
+			
+		</style>
+	</head>
+		<body class="mui-plus mui-statusbar mui-statusbar-offset">	
+		<link rel="stylesheet" type="text/css" href="./css/feedback-page.css" />
+		<header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">个人信息</h1>
+   		</header>
+   		 <!--<div class="mui-navbar-inner mui-bar mui-bar-nav" id="settingBtn">
+				<button type="" class="mui-left mui-btn  mui-btn-link mui-btn-nav mui-pull-left" v-on:click="settingBack">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
+				<h1 class="mui-center mui-title">个人信息</h1>
+		</div>-->
+		<!--页面主结构开始-->
+		<!--<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar"></div>
+				<div class="mui-pages"></div>
+			</div>
+		</div>-->
+		<!--页面主结构结束-->
+		<!--单页面开始-->
+		<div class="mui-page">
+			<!--页面标题栏开始-->
+			<!--<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="" class="mui-left mui-btn  mui-btn-link mui-btn-nav mui-pull-left" onClick="location.href='setting.html'">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
+				<h1 class="mui-center mui-title">个人信息</h1>
+			</div>-->
+			<!--页面标题栏结束-->
+			<!--页面主内容区开始-->
+			<div class="mui-page-content" id="person">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll" style="padding-top:58px;">
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell head-img ps-r" v-on:click="postimg">
+								<a id="rate" class="mui-navigate-right">头像</a>	
+								<a href="javascript:;" class="a-upload ps-a" id="image">
+						            <img alt="" v-bind:src="personInfo.photo">
+						        </a>
+							</li>
+							
+							<li class="mui-table-view-cell mb15 ps-r">
+								<a class="person-name" href="javascript:;">手机号</a>
+								<em id="pname"  style="width:102px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" v-text="personInfo.username"></em>
+							</li>
+							
+							<!--<li class="mui-table-view-cell ps-r h46" v-on:click="per_settingBtn">
+								<a id="tel" class="mui-navigate-right">性别/生日/身高/体重</a>
+								<em v-text="personInfo.sex_name"></em>
+							</li>-->
+						</ul>
+						
+					</div>
+				</div>
+			</div>
+			<!--页面主内容区结束-->
+		</div>
+	</body>
+
+
+
+	<script type="text/javascript">
+		mui.init();
+		mui.back=function () {
+			mui.openWindow({
+				url: 'setting.html',
+				id: 'setting',
+				preload: true,
+				createNew:true,
+				show:{
+					autoShow: true, //页面loaded事件发生后自动提示，默认为true
+			        aniShow: "slide-in-right", //页面显示动画，默认为“slide-in-right”
+		            duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒
+				},
+				styles: {
+					popGesture: 'hide'
+				},
+				waiting:{
+//					autoShow: true, //自动显示等待框，默认为true  
+//		        	title: '正在加载...', //等待对话框上显示的提示内容  
+					autoShow:false
+				}
+			});
+			self.close();
+		}
+		new Vue({
+			el:'#person',
+			data:{
+				personInfo:{
+					photo:"images/morentouxiang.png",
+					nickname:"",
+					sex:"",
+					sex_name:"",
+					img:""
+				},
+				urlmember:'/o2app/getMemberInfo',
+				urlpostimg:'/apps/upload.php',
+				urlheadImg:'/o2app/use_head_img'
+			},
+			created:function(){
+			   this.getpersonInfo();
+			   this.Refresh();
+			},
+			methods:{
+				Refresh:function(){
+						var that = this;//console.log(this)
+						setInterval(function(){
+							 that.getpersonInfo();//console.log(this)与上面不一样
+						},60000)
+				},
+				getpersonInfo:function(){
+					this.$http.post(this.urlmember,{},VUE_HEADER).then(function(res){
+						var json=toJSON(res.data);
+						if(json.result==1)  //成功获取数据
+						{
+							
+							this.personInfo=json.data;
+							
+//							if(this.personInfo.sex==1){
+//								this.personInfo.sex_name='男';
+//							}else if(this.personInfo.sex==2){
+//								this.personInfo.sex_name='女';
+//							}
+							
+							if(!json.data.photo)
+							{
+								this.personInfo.photo="images/morentouxiang.png"
+							}
+							else{
+								this.personInfo.photo = RemoteImageSrc(json['data'].photo);
+							}
+						}
+					})
+					
+				},
+				
+				
+				postimg:function(){
+					var self = this;
+					var uploadUrl = REMOTE_SERVER_HOST+""+this.urlpostimg;
+					//var uploadUrl = 'http://192.168.2.121/upload.php';
+					plus.gallery.pick(function(path){
+						var wt = plus.nativeUI.showWaiting(); 
+				    	var task = plus.uploader.createUpload(uploadUrl,{method:"POST"},
+				    	function(upload, status) {
+							if (upload.state == 4 && status == 200) {
+//								alert( "Upload success: " + upload.getFileName() );
+								//upload.responseText
+//								alert(upload.responseText)
+								var data = toJSON(upload.responseText);
+								if(data.result == 1){
+									wt.close(); 
+									self.headImg(data.photo);
+									self.personInfo.photo=RemoteImageSrc(data.photo);
+								}else{
+									//fail
+									wt.close(); 
+									mui.alert("图片上传失败！")
+								}
+								plus.uploader.clear();
+								//self.getpersonInfo();
+							}
+							
+						});
+						plus.zip.compressImage({
+								src:path,
+								dst:"head/uhead.jpg",
+								overwrite:true,
+								format:"jpg",
+								quality: 80,
+								width:"300px"
+							},
+							function(evt) {
+								task.addData("type", "head");
+								task.addFile(evt.target, {key:"file"});
+								task.start();
+							},function(error) {
+								alert("Compress error!");
+						});
+						
+				    }, function (e) {
+				    	//console.log( "取消选择图片" );
+				    }, {filter:"image"});
+				},
+							
+				headImg:function(u_head){
+					this.$http.post(this.urlheadImg,{'url':u_head},VUE_HEADER).then(function(res){
+						var json=toJSON(res.data);
+						if(json.result == 1)  //成功获取数据
+						{
+							//success
+						}
+					})
+				},
+				per_settingBtn:function(){
+					//location.href='person_height.html';
+					setTimeout(function(){//延后显示可避免低端机上动画时白屏
+						mui.openWindow(openWinParam('person_height.html'));
+					},200);
+				}
+			}
+		})
+		
+		
+//		new Vue({
+//			el:"#settingBtn",
+//			methods:{
+//				settingBack:function(){
+//				mui.openWindow({
+//					url: 'setting.html',
+//					id: 'setting',
+//					preload: true,
+//						show: {
+//							autoShow: true, //页面loaded事件发生后自动提示，默认为true
+//							aniShow: "slide-in-left", //页面显示动画，默认为“slide-in-right”
+//                          duration: 500 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒
+//						},
+//						styles: {
+//							popGesture: 'hide'
+//						},
+//						waiting:{
+//							autoShow: true, //自动显示等待框，默认为true  
+//				        	title: '正在加载...', //等待对话框上显示的提示内容  
+//						}
+//				});
+//				}
+//			}
+//		})
+	</script>
+	</body>
+</html>
+	
+	
+

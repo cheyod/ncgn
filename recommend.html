@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			ul,li{margin: 0;padding: 0;list-style: none;}
+			.mui-content img{width: 100%;}
+			.mui-content i{position: fixed;top: 20px;right: 20px;font-size: 26px;color: #FFF;}
+			.mui-bar{background-color: #fff;}
+			.mui-bar-footer{height: 240px;}
+			.mui-bar-footer ul li{float: left;width: 40%;height: 140px;margin:0 5%;}
+			.mui-bar-footer ul li p{margin: 0;text-align: center;}
+			.mui-bar-footer ul li .icon{width: 50%;margin: 10px auto;}
+			.icon img{width: 100%;}
+			#footer{display: none;}
+			.recommend{width: 100%;position: fixed;bottom: 0px;}
+			.recommend img{width: 100%;display: block;}
+			.mui-action-back{color: #000;}
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script src="js/jquery-1.7.1.js" ></script>
+		<script src="js/clipboard.min.js"></script>
+		<div class="mui-content">
+		    <img src="images/youli.jpg"/>
+		    <i class="mui-icon mui-icon-undo" id="undo"></i>
+		</div>
+
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="position: fixed;top: 22px;left: 20px;"></a>
+
+		<div class="mui-bar mui-bar-footer" id="footer">
+			<p class="mui-text-center" style="margin: 10px 0;font-size: 16px;color: #000000;">推荐好友注册</p>
+			<p class="mui-text-center" style="margin: 10px 0;font-size: 12px;padding: 0 10%;">朋友通过您分享的链接页面或扫描您的二维码完成注册并通过app充值现金账户相应金额，您即可获得对应佣金奖励</p>
+			<ul id="Share">
+				<li id="weixin" v-on:click="ShareWeiXin">
+					<div class="icon">
+						<img src="images/wei_n1.png"/>
+					</div>
+					<p>分享到微信好友</p>
+				</li>
+				<!--<li id="copy" class="btn">
+					<div class="icon">
+						<img src="images/copy.png"/>
+					</div>
+					<p>复制链接</p>
+				</li>-->
+				<li @click="SaoMa">
+					<div class="icon">
+						<img src="images/or_code.png"/>
+					</div>
+					<p>二维码</p>
+				</li>
+			</ul>
+		</div>
+		<div class="recommend">
+			<img src="images/ma.png"/>
+		</div>
+		
+		<script type="text/javascript">
+			$("#undo").click(function(event){
+				$("#footer").slideDown("slow");
+				event.stopPropagation();
+			});
+			$(".recommend").click(function(event){
+				$("#footer").slideDown("slow");
+				event.stopPropagation();
+			});
+//			$(document).on('click',':not(#undo)',function(){
+//	            $("#footer").slideDown("slow");
+//	       })
+			$(document).click(function(){
+				$("#footer").slideUp("slow");
+			});
+
+		</script>
+		<script src="js/share.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/base.js"></script>
+		<script type="text/javascript">
+			mui.back = function() {
+				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+					mui.openWindow(openWinParam_back('index.html'));
+					self.close();
+				},200);
+			}
+			
+			var share = new Vue({
+				el: "#Share",
+				data:{
+					userInfo:[]
+				},
+				created: function(){
+					this.getUserInfo();
+				},
+				methods:{
+					
+					getUserInfo :function(){
+							
+						var that = this;
+						that.$http.post('/o2app/getMemberInfo',{}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast(json.msg);
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('login.html'));
+									self.close();
+								},200);
+							}else{
+								this.userInfo = json.data;
+//								var phone = this.userInfo.username;
+//								var clipboard = new ClipboardJS('#copy', {
+//								        text: function() {
+//								            return "http://o2.schoolwo.cn/register/register.html?phone="+phone;
+//								        }
+//								    });
+//							    clipboard.on('success', function(e) {
+//							        mui.toast("复制成功");
+//							    });
+//							
+//							    clipboard.on('error', function(e) {
+//							        mui.toast("复制失败");
+//							    });
+							}
+						})	
+					},
+					ShareWeiXin:function(){
+						var phone = this.userInfo.username;
+						//分享链接
+						sharehref = "http://o2.schoolwo.cn/register/register.html?phone="+phone;
+						//分享链接标题
+						sharehrefTitle = "农馨农业";
+						//分享链接描述
+						sharehrefDes = "推荐朋友注册成为会员,充值获得大赠送";
+						shareAction({title:'微信朋友圈',s:shares['weixin'],x:'WXSceneSession'},true);
+					},
+					SaoMa:function(){
+						var phone = this.userInfo.username;
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('saoyisao.html?phone='+phone));
+							self.close();
+						},200);
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

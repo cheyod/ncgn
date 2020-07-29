@@ -1,0 +1,1504 @@
+{
+	"person.html": {
+		"resources": [
+			"js/vue-resource.js",
+			"js/app.js",
+			"css/base.css",
+			"images/userimage.png",
+			"css/style.css",
+			"images/arrow_right.png",
+			"images/wo_on.png",
+			"js/base.js",
+			"js/vue.js",
+			"images/arrow_right_big.png",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/more_point.png",
+			"images/lianxi.png",
+			"images/home.png",
+			"js/vue-router.js",
+			"images/maiyaojilu.png",
+			"relative.html",
+			"images/erweima.png",
+			"js/jquery-1.7.1.js",
+			"index.html",
+			"order.html",
+			"manager.html",
+			"login.html",
+			"money_account.html",
+			"points_account.html",
+			"setting.html",
+			"join.html",
+			"reg.html",
+			"check_phone.html",
+			"change_points.html",
+			"addfriend.html",
+			"regapp.html",
+			"js/common.js"
+		],
+		"refer": [
+			"relative.html",
+			"index.html",
+			"order.html",
+			"manager.html",
+			"login.html",
+			"check_phone.html",
+			"join.html",
+			"money_account.html",
+			"points_account.html",
+			"setting.html",
+			"reg.html",
+			"change_points.html",
+			"addfriend.html",
+			"regapp.html"
+		]
+	},
+	"relative.html": {
+		"resources": [
+			"images/add_1.png",
+			"images/wo.png",
+			"js/mui.enterfocus.js",
+			"images/lianxi_on.png",
+			"index.html",
+			"person.html",
+			"addrelative.html",
+			"join.html",
+			"js/vue-resource.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/jquery-1.7.1.js",
+			"images/arrow_right.png",
+			"js/base.js",
+			"images/home.png",
+			"js/vue-router.js",
+			"images/erweima.png",
+			"login.html",
+			"special_care.html",
+			"images/morentouxiang.png",
+			"membership.html"
+		],
+		"refer": [
+			"index.html",
+			"person.html",
+			"login.html",
+			"join.html",
+			"special_care.html",
+			"addrelative.html",
+			"membership.html"
+		]
+	},
+	"index.html": {
+		"resources": [
+			"images/home_on.png",
+			"images/eye.png",
+			"images/shaoyishao_while.png",
+			"person.html",
+			"images/wo.png",
+			"relative.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"images/lianxi.png",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"fonts/mui.ttf",
+			"images/img_1.png",
+			"article.html",
+			"js/config.js",
+			"images/ruler_weight.png",
+			"images/ruler_height.png",
+			"login.html",
+			"erweima.html",
+			"js/common.js"
+		],
+		"refer": [
+			"person.html",
+			"relative.html",
+			"article.html",
+			"card.html",
+			"login.html",
+			"erweima.html",
+			"myInfo.html",
+			"information.html",
+			"commodity_list.html",
+			"shoppingcart.html",
+			"recommend.html",
+			"recharge.html",
+			"order_list.html",
+			"commoditydetails.html",
+			"search_list.html",
+			"recharge_list.html",
+			"about.html",
+			"saoyisao.html",
+			"barcode.html",
+			"barcode_scan.html",
+			"paymentCode.html"
+		]
+	},
+	"order.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"person.html",
+			"css/mui.min.css",
+			"images/wenxintishi.png",
+			"css/base.css",
+			"css/style.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"images/empty.png"
+		],
+		"refer": [
+			"person.html"
+		]
+	},
+	"manager.html": {
+		"resources": [
+			"images/rubish.png",
+			"person.html",
+			"fonts/mui.ttf",
+			"health-detail.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"images/wenxintishi.png"
+		],
+		"refer": [
+			"person.html",
+			"health-detail.html"
+		]
+	},
+	"login.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"person.html",
+			"forget_password.html",
+			"setting.html",
+			"reg.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/mui.enterfocus.js",
+			"js/jquery-1.7.1.js",
+			"/person.html",
+			"person_setting.html",
+			"relative.html",
+			"index.html",
+			"change_psw.html",
+			"change_phone.html"
+		],
+		"refer": [
+			"person.html",
+			"/person.html",
+			"person_setting.html",
+			"relative.html",
+			"setting.html",
+			"reg.html",
+			"forget_password.html",
+			"index.html",
+			"change_psw.html",
+			"change_phone.html",
+			"regapp.html",
+			"person_height.html",
+			"myInfo.html",
+			"register.html"
+		]
+	},
+	"money_account.html": {
+		"resources": [
+			"images/yihangka.png",
+			"fonts/mui.ttf",
+			"person.html",
+			"recharge.html",
+			"withdraw.html",
+			"change_points.html",
+			"card.html",
+			"css/mui.min.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"images/pay_img.jpg"
+		],
+		"refer": [
+			"recharge.html",
+			"withdraw.html",
+			"change_points.html",
+			"person.html",
+			"card.html"
+		]
+	},
+	"points_account.html": {
+		"resources": [
+			"person.html",
+			"payment.html",
+			"change_points.html",
+			"css/mui.min.css",
+			"fonts/mui.ttf",
+			"css/base.css",
+			"css/style.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"person.html",
+			"payment.html",
+			"change_points.html"
+		]
+	},
+	"setting.html": {
+		"resources": [
+			"images/zhanghuanquan.png",
+			"images/guanyu.png",
+			"fonts/mui.ttf",
+			"about.html",
+			"css/feedback-page.css",
+			"user_safe.html",
+			"person_info.html",
+			"js/vue-resource.js",
+			"css/base.css",
+			"js/app.js",
+			"css/style.css",
+			"js/base.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"person.html",
+			"js/vue-router.js",
+			"images/wo.png",
+			"js/jquery-1.7.1.js",
+			"login.html"
+		],
+		"refer": [
+			"about.html",
+			"person_info.html",
+			"person.html",
+			"login.html",
+			"user_safe.html",
+			"myInfo.html",
+			"index.html"
+		]
+	},
+	"user_safe.html": {
+		"resources": [
+			"setting.html",
+			"change_psw.html",
+			"change_phone.html",
+			"css/mui.min.css",
+			"css/feedback-page.css",
+			"css/base.css",
+			"css/style.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"rchange_paypsw.html",
+			"fchange_paypsw.html",
+			"fchange_pay.html"
+		],
+		"refer": [
+			"setting.html",
+			"change_psw.html",
+			"change_phone.html",
+			"rchange_paypsw.html",
+			"fchange_paypsw.html",
+			"fchange_pay.html",
+			"fill_info.html"
+		]
+	},
+	"person_info.html": {
+		"resources": [
+			"images/morentouxiang.png",
+			"setting.html",
+			"person_setting.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"css/feedback-page.css",
+			"js/jquery-1.7.1.js",
+			"images/woman_white.png",
+			"js/in01.js",
+			"js/jquery.min.js",
+			"css/person.css",
+			"images/ruler_weight.png",
+			"images/man_color.png",
+			"images/ruler_height.png",
+			"images/woman_color.png",
+			"images/man_white.png",
+			"js/mui.enterfocus.js",
+			"person_weight.html",
+			"person_sex.html",
+			"person_height.html",
+			"person_birth.html"
+		],
+		"refer": [
+			"setting.html",
+			"person_setting.html",
+			"person_height.html",
+			"person_sex.html",
+			"person_weight.html",
+			"person_birth.html",
+			"person.html"
+		]
+	},
+	"about.html": {
+		"resources": [
+			"setting.html",
+			"css/mui.min.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"js/mui.min.js"
+		],
+		"refer": [
+			"setting.html",
+			"index.html"
+		]
+	},
+	"change_psw.html": {
+		"resources": [
+			"user_safe.html",
+			"login.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"user_safe.html",
+			"login.html"
+		]
+	},
+	"person_setting.html": {
+		"resources": [
+			"images/woman_white.png",
+			"js/in01.js",
+			"css/person.css",
+			"person_info.html",
+			"images/man_color.png",
+			"images/kedu.png",
+			"js/mui.enterfocus.js",
+			"login.html",
+			"js/vue-resource.js",
+			"css/base.css",
+			"js/app.js",
+			"js/jquery.min.js",
+			"images/ruler_weight.png",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/base.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/ruler_height.png",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"images/woman_color.png",
+			"images/man_white.png"
+		],
+		"refer": [
+			"person_info.html",
+			"login.html"
+		]
+	},
+	"change_phone.html": {
+		"resources": [
+			"user_safe.html",
+			"js/getVerifyCode.js",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"login.html"
+		],
+		"refer": [
+			"user_safe.html",
+			"login.html"
+		]
+	},
+	"forget_password.html": {
+		"resources": [
+			"login.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"js/getVerifyCode.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"login.html",
+			"set_psw.html"
+		]
+	},
+	"reg.html": {
+		"resources": [
+			"images/select_sanjiao.png",
+			"images/camera.png",
+			"images/step01.png",
+			"login.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"person.html",
+			"images/select_sanjiao_2.png",
+			"reg_pay.html",
+			"erweima.html",
+			"js/lazyload.js",
+			"css/zzsc.css",
+			"js/h5upload.js",
+			"js/script.js",
+			"js/jquery1.8.3.min.js",
+			"css/uploadimg.css",
+			"css/publi.css"
+		],
+		"refer": [
+			"login.html",
+			"person.html",
+			"reg_pay.html",
+			"erweima.html"
+		]
+	},
+	"addrelative.html": {
+		"resources": [
+			"images/shaoyishao.png",
+			"images/search_small.png",
+			"search.html",
+			"css/base.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"images/arrow_right.png",
+			"images/erweima.png",
+			"join.html",
+			"js/vue-resource.js",
+			"js/app.js",
+			"js/base.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"relative.html",
+			"erweima.html",
+			"addfriend.html"
+		],
+		"refer": [
+			"search.html",
+			"relative.html",
+			"join.html",
+			"erweima.html",
+			"addfriend.html"
+		]
+	},
+	"search.html": {
+		"resources": [
+			"images/search_big.png",
+			"addrelative.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"images/search_small.png",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"fonts/mui.ttf",
+			"membership.html"
+		],
+		"refer": [
+			"addrelative.html",
+			"membership.html",
+			"commodity_list.html"
+		]
+	},
+	"join.html": {
+		"resources": [
+			"images/friend_ico.png",
+			"addrelative.html",
+			"images/qq_ico.png",
+			"images/link_ico.png",
+			"images/weixin_ico.png",
+			"relative.html",
+			"images/share_btn.png",
+			"fonts/mui.ttf",
+			"person.html",
+			"js/vue-resource.js",
+			"js/app.js",
+			"css/base.css",
+			"css/style.css",
+			"js/base.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"js/tools.js",
+			"js/mui.zoom.js",
+			"images/weibo_ico.png"
+		],
+		"refer": [
+			"addrelative.html",
+			"relative.html",
+			"person.html"
+		]
+	},
+	"check_phone.html": {
+		"resources": [
+			"css/base.css",
+			"js/mui.min.js",
+			"js/getVerifyCode.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"js/vue.js",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"setpay_psw.html",
+			"fill_info.html"
+		],
+		"refer": [
+			"setpay_psw.html",
+			"fill_info.html"
+		]
+	},
+	"recharge.html": {
+		"resources": [
+			"images/select_sanjiao.png",
+			"money_account.html",
+			"pay.html",
+			"pay_psw.html",
+			"fonts/mui.ttf",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"js/immersed.js",
+			"js/common.js",
+			"css/common.css"
+		],
+		"refer": [
+			"money_account.html",
+			"pay.html",
+			"pay_psw.html",
+			"payment_iap.html",
+			"recharge.html",
+			"index.html",
+			"recharge_list.html",
+			"account_details.html"
+		]
+	},
+	"withdraw.html": {
+		"resources": [
+			"money_account.html",
+			"images/select_sanjiao_2.png",
+			"js/mui.enterfocus.js",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"withdraw_info.html",
+			"fill_info_withdraw.html"
+		],
+		"refer": [
+			"money_account.html",
+			"withdraw_info.html",
+			"fill_info_withdraw.html"
+		]
+	},
+	"change_points.html": {
+		"resources": [
+			"money_account.html",
+			"points_account.html",
+			"fonts/mui.ttf",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"person.html"
+		],
+		"refer": [
+			"money_account.html",
+			"points_account.html",
+			"person.html"
+		]
+	},
+	"payment.html": {
+		"resources": [
+			"images/payfor.png",
+			"images/erwei.png",
+			"images/tiaoxingma.png",
+			"points_account.html",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"points_account.html"
+		]
+	},
+	"card.html": {
+		"resources": [
+			"images/gonghang_bg.png",
+			"add_card.html",
+			"money_account.html",
+			"images/add_1.png",
+			"unbundling.html",
+			"setpay_psw_i.html",
+			"css/mui.min.css",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"add_card.html",
+			"money_account.html",
+			"unbundling.html",
+			"setpay_psw_i.html"
+		]
+	},
+	"article.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"index.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"index.html",
+			"person.html",
+			"information.html"
+		]
+	},
+	"special_care.html": {
+		"resources": [
+			"relative.html",
+			"health-detail.html",
+			"fonts/mui.ttf",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"images/more_point.png",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/mui.enterfocus.js",
+			"js/jquery-1.7.1.js",
+			"images/user-photo.png",
+			"images/morentouxiang.png"
+		],
+		"refer": [
+			"relative.html",
+			"health-detail.html",
+			"special_care.html"
+		]
+	},
+	"health-detail.html": {
+		"resources": [
+			"images/radio_1.png",
+			"images/radio_2.png",
+			"manager.html",
+			"special_care.html",
+			"css/mui.min.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"css/base.css",
+			"css/style.css",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"manager.html",
+			"special_care.html"
+		]
+	},
+	"erweima.html": {
+		"resources": [
+			"addrelative.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"index.html",
+			"membership.html",
+			"reg.html",
+			"person.html"
+		],
+		"refer": [
+			"addrelative.html",
+			"index.html",
+			"membership.html",
+			"reg.html",
+			"register.html",
+			"paymentCode.html"
+		]
+	},
+	"add_card.html": {
+		"resources": [
+			"card.html",
+			"fill_info.html"
+		],
+		"refer": [
+			"card.html",
+			"fill_info.html"
+		]
+	},
+	"fill_info.html": {
+		"resources": [
+			"images/tongyi_blue.png",
+			"add_card.html",
+			"check_phone.html",
+			"css/mui.min.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"images/tongyi_grey.png",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"add_card.html",
+			"check_phone.html",
+			"user_safe.html"
+		]
+	},
+	"unbundling.html": {
+		"resources": [
+			"card.html",
+			"js/psw.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"card.html"
+		]
+	},
+	"setpay_psw.html": {
+		"resources": [
+			"setpay_psw_i.html",
+			"check_phone.html",
+			"css/mui.min.css",
+			"js/psw.js"
+		],
+		"refer": [
+			"setpay_psw_i.html",
+			"check_phone.html"
+		]
+	},
+	"setpay_psw_i.html": {
+		"resources": [
+			"card.html",
+			"setpay_psw.html",
+			"css/mui.min.css",
+			"js/psw.js"
+		],
+		"refer": [
+			"card.html",
+			"setpay_psw.html"
+		]
+	},
+	"reg_check.html": {
+		"resources": [
+			"images/wenxintishi.png",
+			"images/step03.png",
+			"index.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"reg_pay.html"
+		],
+		"refer": [
+			"index.html",
+			"reg_pay.html"
+		]
+	},
+	"reg_pay.html": {
+		"resources": [
+			"images/weixin_ico2.png",
+			"reg_check.html",
+			"images/goublue.png",
+			"images/step02.png",
+			"images/xianxia_ico.png",
+			"css/mui.min.css",
+			"reg.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"images/zhifubao_ico.png",
+			"css/base.css",
+			"js/common.js",
+			"css/style.css",
+			"js/immersed.js"
+		],
+		"refer": [
+			"reg_check.html",
+			"reg.html"
+		]
+	},
+	"membership.html": {
+		"resources": [
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"search.html",
+			"relative.html",
+			"erweima.html",
+			"images/morentouxiang.png"
+		],
+		"refer": [
+			"search.html",
+			"relative.html",
+			"erweima.html"
+		]
+	},
+	"pay_psw.html": {
+		"resources": [
+			"recharge.html",
+			"js/psw.js",
+			"pay.html"
+		],
+		"refer": [
+			"recharge.html",
+			"pay.html",
+			"fchange_pay.html",
+			"payment_method.html",
+			"buy_success.html",
+			"pay_psw.html"
+		]
+	},
+	"pay.html": {
+		"resources": [
+			"pay_psw.html",
+			"js/getVerifyCode.js",
+			"recharge.html",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"pay_psw.html",
+			"recharge.html"
+		]
+	},
+	"withdraw_info.html": {
+		"resources": [
+			"images/clock_ico.png",
+			"money_account.html",
+			"withdraw.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"money_account.html",
+			"withdraw.html"
+		]
+	},
+	"addfriend.html": {
+		"resources": [
+			"images/friend_ico.png",
+			"images/qq_ico.png",
+			"images/link_ico.png",
+			"images/weixin_ico.png",
+			"images/share_btn.png",
+			"addrelative.html",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"person.html"
+		],
+		"refer": [
+			"addrelative.html",
+			"person.html"
+		]
+	},
+	"person_height.html": {
+		"resources": [
+			"js/in01.js",
+			"js/jquery.min.js",
+			"css/person.css",
+			"js/mui.enterfocus.js",
+			"js/vue-resource.js",
+			"css/base.css",
+			"js/app.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/base.js",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"person_weight.html",
+			"person_info.html"
+		],
+		"refer": [
+			"person_weight.html",
+			"person_info.html",
+			"login.html"
+		]
+	},
+	"person_weight.html": {
+		"resources": [
+			"person_height.html",
+			"person_sex.html",
+			"js/vue-resource.js",
+			"css/base.css",
+			"js/app.js",
+			"js/jquery.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/mui.enterfocus.js",
+			"js/in01.js",
+			"js/base.js",
+			"css/person.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"person_height.html",
+			"person_sex.html"
+		]
+	},
+	"person_sex.html": {
+		"resources": [
+			"images/woman_white.png",
+			"images/woman_color.png",
+			"images/man_color.png",
+			"images/man_white.png",
+			"js/vue-resource.js",
+			"css/base.css",
+			"js/app.js",
+			"js/jquery.min.js",
+			"fonts/mui.ttf",
+			"css/style.css",
+			"js/mui.enterfocus.js",
+			"js/in01.js",
+			"js/base.js",
+			"css/person.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"person_info.html",
+			"person_birth.html",
+			"person_weight.html"
+		],
+		"refer": [
+			"person_info.html",
+			"person_birth.html",
+			"person_weight.html"
+		]
+	},
+	"person_birth.html": {
+		"resources": [
+			"js/mui.picker.min.js",
+			"css/app.css",
+			"css/mui.picker.min.css",
+			"person_sex.html",
+			"js/vue-resource.js",
+			"css/base.css",
+			"js/app.js",
+			"js/jquery.min.js",
+			"css/style.css",
+			"js/mui.enterfocus.js",
+			"js/in01.js",
+			"js/base.js",
+			"css/person.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"fonts/mui.ttf",
+			"person_info.html"
+		],
+		"refer": [
+			"person_sex.html",
+			"person_info.html"
+		]
+	},
+	"regapp.html": {
+		"resources": [
+			"images/select_sanjiao.png",
+			"images/camera.png",
+			"css/base.css",
+			"images/step01.png",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"css/zzsc.css"
+		],
+		"refer": [
+			"reg_pay.html"
+		]
+	},
+	"set_psw.html": {
+		"resources": [
+			"css/base.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"js/vue.js",
+			"fonts/mui.ttf",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"login.html"
+		]
+	},
+	"rchange_paypsw.html": {
+		"resources": [
+			"js/vue-resource.js",
+			"js/base.js",
+			"user_safe.html",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"js/jquery.min.js",
+			"js/getVerifyCode.js"
+		],
+		"refer": [
+			"user_safe.html",
+			"fchange_paypsw.html"
+		]
+	},
+	"fchange_paypsw.html": {
+		"resources": [
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js",
+			"user_safe.html"
+		],
+		"refer": [
+			"user_safe.html",
+			"login.html",
+			"fchange_pay.html"
+		]
+	},
+	"fchange_pay.html": {
+		"resources": [
+			"css/base.css",
+			"js/getVerifyCode.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"user_safe.html"
+		],
+		"refer": [
+			"user_safe.html",
+			"fchange_paypsw.html"
+		]
+	},
+	"payment_iap.html": {
+		"resources": [
+			"css/common.css"
+		],
+		"refer": []
+	},
+	"fill_info_withdraw.html": {
+		"resources": [
+			"js/vue-resource.js",
+			"js/base.js",
+			"js/app.js",
+			"css/base.css",
+			"js/vue.js",
+			"images/tongyi_blue.png",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"withdraw.html",
+			"js/vue-router.js",
+			"js/jquery-1.7.1.js"
+		],
+		"refer": [
+			"withdraw.html"
+		]
+	},
+	"information.html": {
+		"refer": [
+			"article.html",
+			"person.html",
+			"index.html",
+			"login.html",
+			"myInfo.html",
+			"shoppingcart.html",
+			"recommend.html",
+			"recharge_list.html"
+		],
+		"resources": [
+			"css/menu.css"
+		]
+	},
+	"myInfo.html": {
+		"refer": [
+			"index.html",
+			"information.html",
+			"login.html",
+			"shoppingcart.html",
+			"order_list.html",
+			"setting.html",
+			"recommend.html",
+			"address_details.html",
+			"account_details.html"
+		],
+		"resources": []
+	},
+	"commodity_list.html": {
+		"refer": [
+			"index.html",
+			"information.html",
+			"commoditydetails.html",
+			"shoppingcart.html",
+			"myInfo.html",
+			"commodity_list.html",
+			"search_list.html",
+			"search.html"
+		],
+		"resources": []
+	},
+	"shoppingcart.html": {
+		"refer": [
+			"information.html",
+			"myInfo.html",
+			"index.html",
+			"order_details.html",
+			"commodity_list.html",
+			"login.html"
+		],
+		"resources": []
+	},
+	"order_list.html": {
+		"refer": [
+			"myInfo.html",
+			"index.html",
+			"order_details.html",
+			"payment_method.html",
+			"buy_success.html",
+			"login.html"
+		],
+		"resources": []
+	},
+	"recommend.html": {
+		"refer": [
+			"myInfo.html",
+			"index.html",
+			"login.html",
+			"saoyisao.html"
+		],
+		"resources": []
+	},
+	"commoditydetails.html": {
+		"refer": [
+			"commodity_list.html",
+			"order_details.html",
+			"index.html"
+		],
+		"resources": []
+	},
+	"address_details.html": {
+		"refer": [
+			"address_details.html",
+			"myInfo.html",
+			"order_click.html"
+		],
+		"resources": []
+	},
+	"buy_success.html": {
+		"refer": [
+			"order_click.html",
+			"order_list.html",
+			"order_details.html"
+		],
+		"resources": []
+	},
+	"order_click.html": {
+		"refer": [
+			"address_details.html",
+			"buy_success.html",
+			"address_details2.html",
+			"order_list.html"
+		],
+		"resources": []
+	},
+	"account_details.html": {
+		"refer": [
+			"myInfo.html",
+			"withdrawal.html",
+			"recharge.html"
+		],
+		"resources": []
+	},
+	"withdrawal.html": {
+		"refer": [
+			"account_details.html"
+		],
+		"resources": []
+	},
+	"search_list.html": {
+		"refer": [
+			"commodity_list.html",
+			"index.html",
+			"search_list.html",
+			"myInfo.html",
+			"commoditydetails.html"
+		],
+		"resources": []
+	},
+	"payment_method.html": {
+		"refer": [
+			"buy_success.html",
+			"setpay_psw.html",
+			"set_pay.html",
+			"pay_psw.html",
+			"order_details.html"
+		],
+		"resources": []
+	},
+	"order_details.html": {
+		"refer": [
+			"buy_success.html",
+			"payment_method.html",
+			"order_list.html",
+			"order_click.html"
+		],
+		"resources": []
+	},
+	"set_pay.html": {
+		"refer": [
+			"user_safe.html",
+			"set_paypsw.html",
+			"payment_method.html"
+		],
+		"resources": []
+	},
+	"set_paypsw.html": {
+		"refer": [
+			"order_details.html",
+			"set_pay.html",
+			"payment_method.html"
+		],
+		"resources": []
+	},
+	"recharge_list.html": {
+		"refer": [
+			"index.html",
+			"recharge.html"
+		],
+		"resources": []
+	},
+	"register.html": {
+		"refer": [
+			"login.html"
+		],
+		"resources": []
+	},
+	"saoyisao.html": {
+		"refer": [
+			"recommend.html"
+		],
+		"resources": []
+	},
+	"address_details2.html": {
+		"refer": [
+			"order_click.html",
+			"buy_success.html"
+		],
+		"resources": []
+	},
+	"paymentCode.html": {
+		"refer": [
+			"recommend.html",
+			"index.html"
+		],
+		"resources": []
+	},
+	"text.html": {
+		"refer": [
+			"recommend.html",
+			"information.html"
+		],
+		"resources": []
+	}
+}

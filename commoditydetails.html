@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.site{width: 100%;height: 330px;}
+			.site img{width: 100%;height: 100%;}
+			.commodity_name{width: 100%;height: 104px;background: #fff;border-top: 1px solid #eee;border-bottom: 1px solid #eee;z-index: 10;}
+			.commodity_name .name{padding: 20px 15px 0 15px;font-size: 24px;color: #252525;font-weight: 700;width: 50%;float: left;}
+			.commodity_name .price{font-size: 18px;color: red;display: block;margin-top: 10px;}
+			.kucun{width: 50%;float: right;margin-top: 48px;text-align: right;color: #ccc;}
+			.kucun span{padding-right: 14px;font-size: 16px;}
+			.wxts{height: 35px;line-height: 35px;background-color: #FFEDED;color:#B5A7A4;padding: 0 10px;font-size: 13px;border-bottom: 1px solid #E0E0E0;}
+			.footer_item{width: 33.33%;float: left;line-height:50px;text-align: center;}
+			.footer_item span{width: 49%;height: 20px;line-height: 20px;margin-top: 7px;}
+			.footer_item span p{font-size: 12px;}
+			.footer_item span img{width: 35%;}
+			.fl{float: left;}
+			.tw{width: 100%;margin-bottom: 50px;background-color: #fff;padding: 20px 20px 10px 20px;}
+			.tw img{width: 100%!important;height: auto!important;}
+			.specifications{display:none;position: fixed;left: 0;bottom: 0;width: 100%;min-height: 50%;background: #fff;z-index: 100;}
+			.commodity{float: left; width: 86px;height: 85px;margin: 15px 12px 15px 10px;}
+			.commodity img{width: 100%;}
+			.commodity_text{float: left;margin-top: 15px;width:60%;}
+			.commodity_text span{font-size: 13px;color: #273944;font-weight: 500;}
+			.commodity_text .price{font-size: 17px;color: #F25D61;font-weight: bold;margin-top: 30px;}
+			.Close{position: absolute;width: 30px;height: 20px;right: 20px;top: 30px;}
+			.items{clear: both;height: 50px;border-top: 1px solid #E5E5E5;margin: 0 10px;border-bottom: 1px solid #E5E5E5;top: 30px;position: relative;}
+			.mui-numbox{padding: 0;width: 90px;height: 28px;border: none;}
+			.mui-numbox [class*=btn-numbox], .mui-numbox [class*=numbox-btn] {width: 30px;background-color:#F5F5F5}
+			.btn{clear: both;width: 90%;margin:10px 0;height: 48px;line-height: 48px;padding: 0;margin-top:20%;left: 5%;background-color:#02BB82;color: #FFF;font-size: 16px;border: none;}
+			.mui-backdrop {position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 998;background-color: rgba(0,0,0,.3);height: 50%;}
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品详情</h1>
+		</header>
+		
+		<div class="mui-content">
+			
+			<div id="getDetails">
+				<div class="site">
+					<img  v-bind:src="commoditys.cover_img==null ? 'images/img_2.png' : commoditys.cover_img|RemoteImage">
+				</div>
+				<div class="commodity_name" id="">
+					<p class="name">
+						<span>{{commoditys.name}}</span><br />
+						<span class="price">&yen;{{commoditys.price}}/{{commoditys.unit}}</span>
+					</p>
+					
+					<div class="kucun">
+						<span>库存:{{commoditys.count}}</span>
+						<span>未提货:{{commoditys.total_buy}}</span>
+					</div>
+				</div>
+				<div class="wxts">
+					温馨提醒：库存为0时，需要等待下一批入库才能提货！
+				</div>
+				<p style="margin-top: 30px;text-align: center;font-size: 16px;color: #A6A6A6;padding: 0;">图文详情</p>
+				<div class="tw">
+					<div v-html="commoditys.details"></div>
+				</div>
+				<div class="specifications">
+					<div class="commodity">
+						<img  v-bind:src="commoditys.cover_img==null ? 'images/img_2.png' : commoditys.cover_img|RemoteImage">
+					</div>
+					<div class="commodity_text">
+						<div class="price">&yen; {{commoditys.price}}</span></div>
+						<span>库存 {{commoditys.count}}</span>
+						<span v-on:click="Close" class="Close"><i class="mui-icon mui-icon-close"></i></span>
+					</div>
+					<div class="items">
+						<div style="float: left;line-height: 50px;">购买数量:</div>
+						<div class="mui-numbox" data-numbox-step='1' data-numbox-min='1' data-numbox-max='10' style="float: right;margin-top: 10px;" id="num">
+						    <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+						    <input class="mui-input-numbox" type="number" />
+						    <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+					<button class="btn" v-on:click="setcart(commoditys.id,commoditys.supply_id)">确定</button>
+					
+				</div>
+				
+			</div>
+			<div class="mui-bar mui-bar-tab" style="background-color: #fff;">
+				
+				<div class="footer_item">
+					<a href="index.html">
+						<span class="fl" style="border-right:1px solid #e5e5e5;">
+							<img src="images/homepage.png"/>
+							<p>首页</p>
+						</span>
+					</a>
+					
+					<span class="fl" id="telephone">
+						<img src="images/telephone.png"/>
+						<p>电话</p>
+					</span>
+				</div>
+				<div class="footer_item" style="background: #535353;color: #FFF;font-size: 14px;" id="add_cart">
+					加入购物车
+				</div>
+				<div class="footer_item" style="background: #00D166;color: #FFF;font-size: 14px;" id="add_buy">
+					立即购买
+				</div>
+			</div>
+				
+				<script type="text/javascript">
+					var mask = mui.createMask(function(){
+						$(".specifications").slideUp("show");
+					});
+					$("#add_cart").click(function(){
+						$(".specifications").slideDown("show");
+						$(".btn").attr("id","btn1");
+						mask.show()
+					});
+					$("#add_buy").click(function(){
+						$(".specifications").slideDown("show");
+						$(".btn").attr("id","btn2");
+						mask.show()
+					});
+				</script>
+			
+			
+		</div>
+		
+		
+	</body>
+	
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/menu.js"></script>
+	<script type="text/javascript">
+		mui.back = function() {
+			var islist = getUrlParam("islist");//获取地址参数
+			if(islist==1){
+				var item = getUrlParam("class");   //获取地址参数
+				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+					mui.openWindow(openWinParam_back('commodity_list.html?class='+item));
+					self.close();
+				},200);
+			}else{
+				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+					mui.openWindow(openWinParam_back('index.html'));
+					self.close();
+				},200);
+			}
+			
+		}
+		
+		document.getElementById("telephone").addEventListener('tap',function(){
+            var btnArray=['拨打','取消'];
+            var phone="0757-87768948";
+            mui.confirm('是否拨打'+phone+'?','提示',btnArray,function(e){
+                if(e.index == 0){
+                    plus.device.dial(phone,false);
+                }
+            });
+        });
+		new Vue({
+				el: "#getDetails",
+				data:{
+					commoditys:[]
+				},
+				created: function(){
+					var commodity_id = getUrlParam("id");   //获取地址参数
+					this.getDetails(commodity_id);
+				},
+				methods:{
+					
+					getDetails :function(id){
+							
+						var that = this;
+						that.$http.post('/o2app/getCommodityDetails',{'id':id}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							this.commoditys = json.data[0];
+							
+						})	
+					},
+					
+					Close:function(){
+						$(".specifications").slideUp("show");
+						mask.close();
+					},
+					setcart:function(id,supply_id){
+						var num = mui("#num").numbox().getValue();
+						var type = $(".btn").attr("id");
+						if(type == "btn1"){
+							var that = this;
+							that.$http.post('/o2app/setShoppingCart',{'goods_id':id,'supply_id':supply_id,'count':num,'type':1}, VUE_HEADER_JSON).then(function(response){
+								var json  = toJSON(response.data);
+								if(json.result==0){
+									mui.toast(json.msg);
+								}else{
+									mui.toast("添加成功");
+									$(".specifications").slideUp("show");
+									mask.close();
+									
+								}
+							})
+						}else{
+							var that = this;
+							that.$http.post('/o2app/addOrder',{'goods_id':id,'num':num}, VUE_HEADER_JSON).then(function(response){
+								var json  = toJSON(response.data);
+								if(json.result==0){
+									mui.toast(json.msg);
+								}else{
+									mui.toast("创建订单成功");
+									setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('order_details.html?id='+json.data));
+									self.close();
+								},1000);	
+								}
+							})
+						}
+//						
+					}
+				}
+			});
+	</script>
+</html>

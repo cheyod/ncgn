@@ -1,0 +1,138 @@
+/*编辑按钮*/
+
+.mui-pull-right{
+    line-height: 45px;
+    color: #fff;
+    font-size: 14px;
+}
+.shopTitle{
+	margin-bottom: 20px;
+	font-size: 13px;
+	color: #2A2A2A;
+}
+.shopPrice{
+	float: left;
+	font-size: 17px;
+	color: #FF5C5C;
+}
+.shopnum{
+	float: right;
+}
+.shopnum div{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	float: left;
+}
+.shopnum .jian,.shopnum .jia{
+	background-color: #F5F5F5;
+}
+.shopnum .num{
+	border-radius: 4px;
+}
+.shopCart{
+    width: 100%;
+}
+.shopCartItem{
+    float: left;
+    padding: 18px 0 20px 30px;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid #f0f0f0;
+}
+.shopCartNull{
+	text-align: center;
+	font-size: 18px;
+	margin-top: 50%;
+}
+
+.shopCartItem .iptSelect{
+    float: left;
+    margin: 36px 0px;
+}
+
+.shopCartItem img{
+    float: left;
+    width: 80px;
+    height:80px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.goodsImg{
+	float: left;
+	margin: -50px 60px 0px 0px;
+	
+}
+
+.goodsInfo {
+	float: left;
+	width: 64%;
+	height: 80px;
+	padding-left: 8px;
+	
+}
+
+.goodsOpreation{
+	float: left;
+	display: none;
+	width: 65%;
+	height: 80px;
+	padding-left: 5px;
+}
+.goodsCount{
+	display: inline-block;
+	width: 50%;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+}
+.shopDel{
+	float: right;
+	display: inline-block;
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	color: red;
+	border: 1px solid red;
+	text-align: center;
+	border-radius: 6px;
+	margin-top: 22px;
+}
+
+
+.mui-bar p{
+    float: left;
+    padding: 0;
+    height: 50px;
+    margin-bottom: 0px;
+    line-height: 50px;
+}
+.qx{
+	line-height: 48px;
+    text-align: left;
+    padding-left: 20px;
+     border-top: 1px solid darkgrey;
+}
+.hj{
+	margin-left: 20px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 17px;
+    color: #232325;
+}
+.buyNow{
+	float: right;
+}
+.buyNowbtn{
+    height:50px;
+    line-height: 50px;
+    color: white;
+    font-size: 16px;
+    padding: 0px 20px;
+    background-color: #FF0000;
+    border: none;
+    border-radius: 0px!important;
+}

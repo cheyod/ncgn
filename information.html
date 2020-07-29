@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/base.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/menu.css"/>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<!--<script type="text/javascript" src="js/common.js"></script>-->
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/common.js"></script>
+		
+		<style>
+			ul{font-size:14px;color:#8f8f94}
+			
+			.mui-content{margin-top: 15px;}
+			.mui-input-group:before,.mui-input-group:after,.mui-input-group .mui-input-row:after{background-color:transparent;}
+			.mui-btn{padding:10px}
+			.scan{right:10px;top:27px;}
+			.scan img{width:60%;padding-top: 4px;}
+			.mui-table-view:before,.mui-table-view:after{background-color:transparent;}
+			.mui-media-body{white-space: initial!important;}
+			.title{color:#333;font-size:18px;font-weight:bold;margin-bottom:40px;width: 100%;}
+			.mui-table-view-cell{min-height:114px;}
+			.mui-slider .mui-slider-group .mui-slider-item img{height:144px;}
+			.mui-table-view .mui-media-object{width:77px!important;height:77px;max-width:77px;border-radius:6px;}
+			.mui-table-view-cell:after{right:15px;}
+			.mui-table-view-cell{padding:0!important;}
+			.mui-table-view-cell>a:not(.mui-btn){margin:18px 15px;}
+			.mui-slider-indicator .mui-indicator{display:inline-block;width:10px;height:10px;margin:1px 4px;cursor:pointer;border-radius:50%;background:#aaa;box-shadow:none}
+			.mui-ellipsis img{width:22px;margin-left:15px;margin-right:10px;}
+			
+			
+			.mui-bar{box-shadow:none;}
+			.mui-bar-nav~.mui-content{margin-bottom:70px;padding-top:43px!important;}
+			.ui-page-login, .mui-content{height:auto;}
+			
+			.mui-scroll-wrapper{top:202px!important;bottom:50px!important;}
+			.mui-bar-nav~.mui-content .mui-pull-top-pocket{top:0px!important;}
+		</style>
+</head>
+		<body class="mui-plus mui-statusbar mui-statusbar-offset">
+			
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">资讯</h1>
+		</header>
+		<div class="mui-content">  
+			<div id="slider" class="mui-slider" >
+				<div class="mui-slider-group mui-slider-loop" id="banner">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate" >
+						<a href="javascript:;">
+							<img v-bind:src="firstImg|RemoteImage">
+						</a>
+					</div>
+
+					<!-- 第一张 -->
+					<div class="mui-slider-item main-img" v-for="item in bannerImg">
+						<a href="javascript:;" @click="goHref(item.img_url)">
+							<img v-bind:src="item.img_src==null ? 'images/banner_1.png' : item.img_src|RemoteImage">
+						</a>
+					</div>
+				
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="javascript:;">
+							<img v-bind:src="firstImg|RemoteImage">
+						</a>
+					</div>
+					
+					
+				</div>
+				<!--轮播圆点-->
+				<div class="mui-slider-indicator" >
+					<div class="mui-indicator mui-active" ></div>	
+						
+				</div>
+				
+			</div>
+			
+			<div class="mui-scroll-wrapper" id="pullrefresh">	
+				<div class="mui-scroll">
+					<!-- 文章列表 -->
+					<ul class="mui-table-view mt10" id="app">
+						<li class="mui-table-view-cell mui-media" v-for="item in articleLists">
+							<span class="sid" v-text="item.id" style="display:none;"></span>
+							<a href="javascript:;" class="article" v-on:click="viewArticle(item.id)">
+								<img class="mui-media-object mui-pull-right" v-bind:src="item.img==null ? '/style/images/iconfont-tianjia.png': item.img|RemoteImage" style="border:none!important;"> 
+								
+								<div class="mui-media-body">
+									<div class="title">
+										{{item.title}}
+									</div>
+									<p class='mui-ellipsis'>
+										<span v-text="item.created"></span> 
+										<em><img src="images/eye.png" alt="" /><span v-text="item.views"></span></em>
+									</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<script> 
+						//
+						$(function(){
+							$(".article img").each(function(){
+							    var src = $(this).find("img").attr("src");    //获取图片路径
+							    if(src == ""||src =="http://o2.newft.nft:8080"){
+							        $(this).hide();
+							    }
+							});
+						})
+						
+					</script>
+				</div>
+			</div>
+		</div>
+		
+		<div class="menu clearfix" id="menu">
+			<ul>
+				<li v-on:click="indexBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/vegetable_market2.png" alt="" />
+						</div>
+						<p>菜市</p>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/information2.png" alt="" />
+						</div>
+						<p>资讯</p>
+					</a>
+				</li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+				<li v-on:click="shoppingcartBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<span class="mui-badge mui-badge-danger" id="Count" v-if="Count!=0"></span>
+							<img src="images/shopping_cart_n.png" alt="" />
+						</div>
+						<p>购物车</p>
+					</a>
+				</li>
+				<li v-on:click="myBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/my.png" alt="" />
+						</div>
+						
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<script src="js/menu.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {	
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					backButtonPress++;
+					if (backButtonPress > 1) {
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				}
+//				var currentView = plus.webview.currentWebview();
+//				currentView.show('none', 500);
+//				plus.nativeUI.closeWaiting();
+			});	
+			var datalist = [];
+			//VUE
+  			var vueM=new Vue({
+			    el: '#app',
+			    data:{
+			    	articleLists:[],
+			    	page:1,
+			    	current:"",
+			    	img_url:""
+			    }, 
+				created: function(){
+					//this.getArticleList();  //执行 获取文章列表 的方法
+				},			
+				methods: {
+					
+					getArticleList: function(){
+						var that = this;
+						that.$http.post("/o2app/getArctiles",{page:this.page},VUE_HEADER).then(function(response){
+							var json = toJSON(response.data);
+							datalist = datalist.concat(json.data);
+							this.articleLists = datalist;    //文章列表
+							
+							this.current=json.paginator.current;   //当前页
+//							mui("#app").on('tap', 'li', function(event) {
+//								var id = $(this).find('.sid').text();
+//								mui.openWindow(openWinParam('article.html?id='+id));
+//								//location.href='article.html?id='+id
+//							});
+								
+						});
+					},
+					viewArticle: function(id){      //文章列表地址传参
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('article.html?id='+id));
+							self.close();
+						},200);
+//						plus.webview.currentWebview().close();  
+					//	mui.fire(plus.webview.getLaunchWebview(),'backRefresh');
+						
+					},		
+				}
+					
+			});
+			
+			//banner
+			new Vue({
+				el: "#banner",
+				data:{
+					bannerImg:[],
+					firstImg:''
+				},
+				created: function(){
+					this.getBanner();
+				},
+				methods:{
+					goHref:function(url){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam(url));
+							self.close();
+						},200);
+					},
+					getBanner :function(){
+//						setTimeout(function(){
+//								document.querySelector('.share').style.display='none';
+//							}, 300);
+							
+						var that = this;
+						that.$http.post('/o2app/getArticleBannerList',{}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							this.bannerImg = json.data;
+							this.firstImg = json.data[0];
+							var b = this.bannerImg.length-1;
+							for(var i=0;i<b;i++)
+							{
+								var a = $("<div class='mui-indicator'></div>");
+								
+								$(".mui-slider-indicator").append(a);
+							}
+							
+						})
+					}
+					
+					
+				}
+			});
+			
+			 window.onload=function(){
+			 	vueM.getArticleList();
+			 }
+	</script>		 
+			 
+	<script type="text/javascript" charset="utf-8">
+		var slider = mui("#slider");
+			slider.slider({
+				interval: 3000
+		});
+	</script>
+	
+	<script type="text/javascript">
+		mui.init({
+			// 初始化下拉和上拉
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+				up: {
+					contentrefresh: '正在加载...',
+					callback: pullupRefresh
+				}
+			}
+		});
+			/*下拉刷新具体业务实现*/
+			function pulldownRefresh() {
+				setTimeout(function() {
+					datalist = []; 
+					vueM.page = 1;
+					vueM.getArticleList();
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+	
+			/*上拉加载具体业务实现*/
+			function pullupRefresh() {
+				setTimeout(function() {					
+					vueM.page ++;
+					vueM.getArticleList();					
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh((vueM.page > 2)); 
+					
+				}, 1500);
+				
+			}
+	</script>
+	
+	</body>
+
+</html>	

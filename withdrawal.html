@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-input-group{position: initial;margin-top: 10px;}
+			.mui-input-row{position: initial;}
+			.mui-input-group .mui-input-row{height: 43px;line-height: 43px;font-size: 15px;color: #28282A;border-bottom:1px solid #E5E5E5;}
+			.mui-input-row label{line-height: inherit;padding: 0;padding-left: 12px;}
+			.wxts{height: 40px;line-height: 40px;font-size: 13px;padding-left: 10px;color: #909193;}
+			.btn{clear: both;width: 90%;height: 48px;line-height: 48px;padding: 0;left: 5%;background: linear-gradient(to bottom right, #01D068,#02B887);color: #FFF;font-size: 16px;border: none;}
+			.mui-input-row label{width: 26%;}
+			.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea{float: left;width: 70%;}
+			
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">提现</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mui-input-group">
+		        <div class="mui-input-row">
+		            <label>提现金额:</label>
+		            <input type="number" class="mui-input-clear" placeholder="" id="money" oninput="var patrn = /[^\d]/g;if(patrn.exec(value) != null){mui.toast('请输入数字')};value=value.replace(/[^\d]/g,'');">
+		        </div>
+		    </div>
+		    <div id="withdrawal">
+		    	<span class="wxts">温馨提示:用于提现的金额不能少于100元</span>
+		    	<button class="btn" @click="Determine">确定提现</button>
+		    </div>
+		    
+		</div>
+	</body>
+	<script src="js/jquery-1.7.1.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/base.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: "#withdrawal",
+			data:{
+
+			},
+			methods:{
+				
+				Determine:function(){
+					var money = $("#money").val();
+					if(money<100){
+						mui.toast("提现金额不能少于100元！");
+						return;
+					}
+					var type = getUrlParam("type");   //获取地址参数
+					var that = this;
+					that.$http.post('/o2app/WithdrawalMoney',{'type':type,'money':money}, VUE_HEADER).then(function(response){
+						var json  = toJSON(response.data);
+						if(json.result==0){
+							mui.toast(json.msg);
+						}else{
+							mui.alert(json.msg,'确定',function(){
+								mui.openWindow(openWinParam('account_details.html?class=item1'));
+								self.close();
+							});
+						}
+					})
+				}
+			}
+		});
+	</script>
+</html>

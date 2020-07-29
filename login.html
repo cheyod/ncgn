@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link href="css/style.css" rel="stylesheet" />-->
+		<link href="css/base.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>  
+		
+		<style>
+			body{color:#fff;}
+			.mui-content{background-color:#FFF!important;min-height: 290px;}
+			#login-form{margin:0 15px;margin-top:46px;;}
+			.mui-input-group:before{background-color: #FFF;}
+			.mui-input-group .mui-input-row:after{left:0;}
+			.mui-bar .mui-btn-link{color:#FFF;}
+			
+			.area{margin:20px auto 0px auto}
+			.mui-input-group{margin-top:10px}
+			.mui-input-group:first-child{margin-top:20px}
+			.mui-input-group label{width:22%}
+			.mui-input-row label~input,.mui-input-row label~select,.mui-input-row label~textarea{width:78%}
+			.mui-checkbox input[type=checkbox],.mui-radio input[type=radio]{top:6px;}
+			.mui-content-padded{margin-top:25px}
+			.mui-btn{padding:10px!important;}
+			.link-area{display:block;margin-top:25px;text-align:center}
+			.spliter{color:#bbb;padding:0px 8px}
+			.oauth-area{position:absolute;bottom:20px;left:0px;text-align:center;width:100%;padding:0px;margin:0px}
+			.oauth-area .oauth-btn{display:inline-block;width:50px;height:50px;background-size:30px 30px;background-position:center center;background-repeat:no-repeat;margin:0px 20px;border:solid 1px #ddd;border-radius:25px}
+			.oauth-area .oauth-btn:active{border:solid 1px #aaa}
+			.oauth-area .oauth-btn.disabled{background-color:#ddd}
+			.mui-input-row label{color:#686868;}
+			.mui-icon-eye{right:30px!important;}
+			.link-area a{font-size:15px;color:#686868;}
+			.mui-input-group .mui-input-row:after{left:0;}
+			.mui-input-group:before{background-color:transparent;}
+			.mui-bar .mui-btn-nav.mui-pull-left .mui-icon-left-nav{top:-8px;}
+			
+			.remember{height:40px;line-height:40px;color:#686868;margin-left:15px;}
+			.mui-input-group:after{display:none;}
+			.checkbox input{margin-right:10px;vertical-align: middle;}
+			.mui-btn-blue, .mui-btn-primary, input[type=submit]{background: linear-gradient(to bottom right, #01D068,#02B887);border: none;}
+			
+		</style>
+</head>
+		<body class="mui-plus mui-statusbar mui-statusbar-offset">
+			<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">登录</h1>
+			</header>
+			
+			<div class="mui-content" id="login-user">
+			<form id='login-form' class="mui-input-group">
+			<div class="mui-input-row">
+				<label>账号</label>
+				<input id="num" type="number" class="mui-input-clear mui-input" placeholder="手机号码" required="required" title="请输入正确的手机号码" v-model.trim="loginUser.username">
+			</div>
+			<div class="mui-input-row ps-r">
+				<label>密码</label>
+				<input id='password' type="password" class="mui-input-clear mui-input mui-input-password" placeholder="请输入密码" required="required" v-model.trim="loginUser.password" >
+			</div>
+			<div class="ps-r remember">	
+				<label class="checkbox" contenteditable="false"> 
+					<input type="checkbox" id="chkRem"/>
+					<span>记住密码</span>
+					
+				</label>		
+			</div>
+			</form>
+			
+			<div class="mui-content-padded">
+			<input id="login" type="submit" class="mui-btn mui-btn-block mui-btn-primary" value="登录" v-on:click="userLogin">
+			<div class="link-area">
+				<a id='reg' class="fl" href="javascript:;">成为会员</a>
+				<a id='forgetPassword' class="fr" href="javascript:;">找回密码</a>
+			</div>
+			</div>
+			
+			</div>
+			
+			<script  type="text/javascript">
+			mui.back = function() {
+				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+					mui.openWindow(openWinParam_back('index.html'));
+					self.close();
+				},200);
+			}
+				
+				
+			// 登录
+			var vm =new	Vue({
+			    el:'#login-user',
+			data:{
+				loginUser:{	
+					username:"",
+					password:"",
+					isfirst:"",
+					id:""
+				},
+				url:'/o2app/memberLoad'     //
+			},
+			methods:{
+				//记住密码
+				remPwd:function(){		
+					var Id = localStorage.getItem("num"); 
+				    if(Id != null) //如果缓存中有数据，则加载出来
+				    { 
+				       //document.getElementById("num").value = Id; 
+				       //document.getElementById("password").value = localStorage.getItem("password"); 
+				       this.loginUser.username = Id;
+				       this.loginUser.password = localStorage.getItem("password"); 
+				       document.getElementById("chkRem").checked = "checked";
+				        
+				    } 
+				    
+				},
+				userLogin:function(){
+					var user = this.loginUser.username,
+						psw = this.loginUser.password;
+						console.log("用户"+psw);
+						if(!user)
+						{
+							mui.alert("用户名不能为空！");return;
+						}
+						if(!psw)
+						{
+							mui.alert("密码不能为空！");return;
+						}
+					this.$http.post(this.url, {'username':user,'password':psw}, VUE_HEADER_JSON).then(function(res){
+						var json=toJSON(res.data);
+						//clearLogin();              
+					  	if(json.result == 1)
+					  	{
+					  		//记住密码
+					  		var check = document.getElementById("chkRem"); 
+					        if(check.checked) //判断记住密码项是否勾选，是则记住密码到本地缓存 
+					        { 
+					            var id = document.getElementById("num").value; 
+					            var pwd = document.getElementById("password").value; 
+					            localStorage.setItem("num", id); 
+					            localStorage.setItem("password", pwd); 
+					        } else //否则就移除本地缓存 
+					        { 
+					            localStorage.removeItem("num"); 
+					            localStorage.removeItem("password"); 
+					        } 
+			        
+							this.loginUser.isfirst = json.isfirstload;
+							this.loginUser.id = json.member_id.member_id;
+							
+							cacheLogin(user,psw);
+								mui.alert("登录成功！", " 我知道了", function(){
+								location.href='myInfo.html?id='+this.id;
+								mui.fire(plus.webview.getLaunchWebview(),'backRefresh');
+								});
+							}
+							else{
+								mui.alert(json.msg);
+							}
+						})
+					}
+				}
+				
+			});
+			vm.remPwd();
+			
+			(function($, doc) {//清除历史栈
+			var CAN_BACK = true;
+			var clickFirst = null;
+			mui.init({
+				beforeback: function(){
+					//返回true，继续页面关闭逻辑
+					if(CAN_BACK == false){
+						plus.key.addEventListener('backbutton', function() {
+							if(!clickFirst) {
+								clickFirst = true;
+								mui.toast('再按一次退出应用');
+								setTimeout(function() {
+									clickFirst = null;
+								}, 2000);
+							} else {
+								if(clickFirst == true) {
+									plus.runtime.quit();
+								}
+							}
+						}, false);
+					}
+					return CAN_BACK;//return true时执行下面的参数，false是拦截默认行为
+				}
+			});
+			$.plusReady(function() {
+				var selfWin = plus.webview.currentWebview();
+				CAN_BACK = selfWin.forbidBack ? false : true;//判断后退是否是退出那个按钮，forbidBack是退出按钮的参数，如果是就不能执行返回
+				
+				var regButton = doc.getElementById('reg');
+				var forgetButton = doc.getElementById('forgetPassword');
+				regButton.addEventListener('tap', function(event) {
+					$.openWindow({
+						url: 'register.html',
+						id: 'register',
+						preload: true,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				}, false);
+			
+				forgetButton.addEventListener('tap', function(event) {
+					$.openWindow({
+						url: 'forget_password.html',
+						id: 'forget_password',
+						preload: true,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				}, false);
+			
+				});
+			}(mui, document));
+			
+			</script>
+	</body>
+
+</html>	

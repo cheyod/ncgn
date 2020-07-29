@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.fl{float: left;}
+			.fr{float: right;}
+			.mt10{margin-top: 10px;}
+			.items{width: 100%;background: #fff;border-top:1px solid #E3E5E9;}
+			.items .address{padding: 15px 0 0 32px;font-size: 16px;color: #252525;font-weight: bold;}
+			
+			
+			.btn{clear: both;display:block;width: 90%;margin:auto;height: 48px;line-height: 48px;padding: 0;margin-top:30%;margin-bottom:10px;background: linear-gradient(to bottom right, #01D068,#02B887);color: #FFF;font-size: 16px;border: none;text-align: center;}
+			
+			
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">申请送货</h1>
+		</header>
+		<div class="mui-content" id="Address">
+		    <div class="items" @click="setAddress()">
+				<p class="address">
+					<span id="username">--</span>
+					<span style="margin: 0 11px 0 24px" id="phone">--</span>
+					<span style="width: 19px;line-height: 30px;background: #06B388;color: #FFF;padding: 5px;font-size: 13px;">默认</span>
+				</p>
+				<p style="padding: 0 0 10px 32px;font-size: 13px;color: #262629;font-weight: normal;margin: 0;" id="address">--</p>
+			</div>
+			<a class="btn" v-on:click="setDelivery()">申请送货</a>
+		</div>
+		
+		
+	</body>
+	<script src="js/jquery-1.7.1.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/base.js"></script>
+	<script type="text/javascript">
+		var order_id = getUrlParam("id");   //获取地址参数
+		mui.back = function() {
+			setTimeout(function(){//延后显示可避免低端机上动画时白屏
+				mui.openWindow(openWinParam_back('buy_success.html?id='+order_id));
+				self.close();
+			},200);
+		}
+		new Vue({
+				el: "#Address",
+				data:{
+					address:[]
+				},
+				created: function(){
+					this.getAddress();
+				},
+				methods:{
+					getAddress:function(){
+						var that = this;
+						that.$http.post('/o2app/getReceivingAddress',{}, VUE_HEADER_JSON).then(function(response){
+							var json  = toJSON(response.data);
+							var order_id = getUrlParam("id");   //获取地址参数
+							this.address = json.data[0];
+							if(this.address == null){
+								mui.toast("请添加默认地址");
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('address_details2.html?id='+order_id));
+									self.close();
+								},200);
+							}
+							$('#username').html(this.address.name);
+							$('#phone').html(this.address.phone);
+							$('#address').html(this.address.address);
+						});
+					},
+					setAddress:function(){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('address_details2.html?id='+order_id));
+							self.close();
+						},200);
+					},
+					setDelivery:function(){
+						var order_id = getUrlParam("id");   //获取地址参数
+						var that = this;
+						that.$http.post('/o2app/setReceivingAddress',{'order_id':order_id}, VUE_HEADER_JSON).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result == 0){
+								mui.toast(json.msg);
+							}else{
+								mui.alert("申请送货成功，稍后会有工作人员与你联系",'确定',function(){
+								mui.openWindow(openWinParam('order_list.html?class=2'));
+								self.close();
+							});
+							}
+						});
+					}
+					
+				}
+			});
+	</script>
+</html>

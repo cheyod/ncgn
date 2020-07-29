@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			* { touch-action: none; }
+			ul,li{list-style: none;}
+			.fl{float: left;}
+			.fr{float: right;}
+			.row{height: 50px;background-color: #FFF;margin: 0;padding: 0;}
+			.row li{float: left;width: 33.33%;line-height: 46px;text-align: center;font-size: 13px;}
+			.row li a{color: #666;display: block;width: 100%;height: 100%;}
+			.active{border-bottom: 4px solid #00BD52;}
+			.item{background-color: #FFF;}
+			.account{width: 90%;margin:0 auto;height:134px;background-color: #21D16F;border-radius: 10px;text-align: center;}
+			.account p{padding:30px 0 20px 0;font-size: 16px;color: #FFF;}
+			.account span{font-size: 50px;color: #FFF;}
+			.item .row{clear:both;height: 69px;font-size: 15px;color: #404040;}
+			.left{padding-left: 16px;padding-top: 16px;}
+			.right{margin-right: 15px;padding-top: 16px;text-align: right}
+			
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{width: 100%;height: 50px;position: initial;}
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{display: block;padding: 0;}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{color: #00BD52;border-bottom: 4px solid #00BD52;}
+			.mui-segmented-control .mui-control-item{line-height: 45px;}
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">账户</h1>
+		</header>
+		<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="position: fixed;top: 64px;">
+			<div class="mui-scroll">
+			    <ul class="row">
+			        <li>
+			        	<a class="mui-control-item" href="#item1" id="class1">
+			        		现金账户
+			        	</a>
+			        </li>
+			        <li>
+			        	<a class="mui-control-item" href="#item2" id="class2">
+			        		佣金账户
+			        	</a>
+			        </li>
+			        <li>
+			        	<a class="mui-control-item" href="#item3" id="class3">
+			        		余额账户
+			        	</a>
+			        </li>
+			        
+			    </ul>
+			</div>
+		</div>
+		<div class="mui-scroll-wrapper" style="margin-top: 114px;">
+		    <div class="mui-scroll">
+		        <script src="js/mui.min.js"></script>
+				<script src="js/jquery-1.7.1.js" type="text/javascript" charset="utf-8"></script>
+				<script type="text/javascript">
+					mui.init()
+				</script>
+				<script type="text/javascript">
+					$('#scroll').scroll({
+						indicators: true //是否显示滚动条
+					});
+					mui('.mui-scroll-wrapper').scroll({
+						deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+						scrollY: true, //是否竖向滚动
+						scrollX: false, //是否横向滚动
+						indicators: false, //是否显示滚动条
+						bounce: true //是否启用回弹
+					});
+				</script>
+				
+				
+				<div class="mui-content">
+					
+				    <!--现金账户-->
+				    <div id="item1" class="mui-slider-item mui-control-content">
+				    	<div id="getAccount1">
+				    		<div class="item" style="padding-top: 30px;padding-bottom: 20px;">
+					    		<div class="account">
+					    			<div style="background: url(images/illustration_n.png);background-size: 90% 134px;height: 134px;">
+					    				<p>现金账户</p>
+					    				<span id="money">--</span>
+					    			</div>
+					    		</div>
+					    	</div>
+					    	<div class="item">
+						    	<a href="recharge.html">
+						    		<div class="row" style="height: 48px;line-height: 48px;">
+										<div class="fl" style="padding-left: 16px;">
+											充值
+										</div>
+										<div class="fr" style="margin-right: 15px;"><i class="mui-icon mui-icon-arrowright" style="font-size: 14px;"></i></div>
+									</div>
+						    	</a>
+						    </div>
+						    <div class="item" style="margin-top: 14px;border-bottom: 1px solid #DEDEDE;">
+						    	<a href="#">
+						    		<div class="row" style="height: 47px;line-height: 47px;">
+										<div class="fl" style="padding-left: 16px;">
+											明细
+										</div>
+									</div>
+						    	</a>
+						    </div>
+	
+						    <div class="item" v-for="item in Account">
+						    	<a href="#">
+						    		<div class="row">
+										<div class="fl left">
+											<span style="font-size: 15px;color: #333;">{{item.purpose}}</span><br />
+											<span style="font-size: 12px;color: #A6A6A6;">余额:{{item.money}}</span>
+										</div>
+										<div class="fr right">
+											<span style="font-size: 12px;color: #9B9B9B;">{{item.created_time}}</span><br />
+											<span style="font-size: 14px;color: #222;"><strong>{{item.arise_money}}</strong></span>
+										</div>
+									</div>
+						    	</a>
+						    </div>
+				    	</div>
+				    </div>
+				    <!--佣金账户-->
+				    <div id="item2" class="mui-slider-item mui-control-content">
+		            	<div id="getAccount2">
+				    		<div class="item" style="padding-top: 30px;padding-bottom: 20px;">
+					    		<div class="account">
+					    			<div style="background: url(images/illustration_n.png);background-size: 90% 134px;height: 134px;">
+					    				<p>佣金账户</p>
+					    				<span id="commission_money">--</span>
+					    			</div>
+					    		</div>
+					    	</div>
+					    	<div class="item">
+						    	<a href="withdrawal.html?type=1">
+						    		<div class="row" style="height: 48px;line-height: 48px;">
+										<div class="fl" style="padding-left: 16px;">
+											提现
+										</div>
+										<div class="fr" style="margin-right: 15px;"><i class="mui-icon mui-icon-arrowright" style="font-size: 14px;"></i></div>
+									</div>
+						    	</a>
+						    </div>
+						    
+						    <div class="item" style="margin-top: 14px;border-bottom: 1px solid #DEDEDE;">
+						    	<a href="#">
+						    		<div class="row" style="height: 47px;line-height: 47px;">
+										<div class="fl" style="padding-left: 16px;">
+											明细
+										</div>
+									</div>
+						    	</a>
+						    </div>
+	
+						    <div class="item" v-for="item in Account">
+						    	<a href="#">
+						    		<div class="row">
+										<div class="fl left">
+											<span style="font-size: 15px;color: #333;">{{item.purpose}}</span><br />
+											<span style="font-size: 12px;color: #A6A6A6;">余额:{{item.money}}</span>
+										</div>
+										<div class="fr right">
+											<span style="font-size: 12px;color: #9B9B9B;">{{item.created_time}}</span><br />
+											<span style="font-size: 14px;color: #222;"><strong>{{item.arise_money}}</strong></span>
+										</div>
+									</div>
+						    	</a>
+						    </div>
+				    	</div>
+		            </div>
+				    <!--余额账户-->
+				    <div id="item3" class="mui-slider-item mui-control-content">
+		            	<div id="getAccount3">
+				    		<div class="item" style="padding-top: 30px;padding-bottom: 20px;">
+					    		<div class="account">
+					    			<div style="background: url(images/illustration_n.png);background-size: 90% 134px;height: 134px;">
+					    				<p>余额账户</p>
+					    				<span id="balance_money">--</span>
+					    			</div>
+					    		</div>
+					    	</div>
+					    	<div class="item">
+						    	<a href="withdrawal.html?type=2">
+						    		<div class="row" style="height: 48px;line-height: 48px;">
+										<div class="fl" style="padding-left: 16px;">
+											提现
+										</div>
+										<div class="fr" style="margin-right: 15px;"><i class="mui-icon mui-icon-arrowright" style="font-size: 14px;"></i></div>
+									</div>
+						    	</a>
+						    </div>
+						    <div class="item" style="margin-top: 14px;border-bottom: 1px solid #DEDEDE;">
+						    	<a href="#">
+						    		<div class="row" style="height: 47px;line-height: 47px;">
+										<div class="fl" style="padding-left: 16px;">
+											明细
+										</div>
+									</div>
+						    	</a>
+						    </div>
+	
+						    <div class="item" v-for="item in Account">
+						    	<a href="#">
+						    		<div class="row">
+										<div class="fl left">
+											<span style="font-size: 15px;color: #333;">{{item.purpose}}</span><br />
+											<span style="font-size: 12px;color: #A6A6A6;">余额:{{item.money}}</span>
+										</div>
+										<div class="fr right">
+											<span style="font-size: 12px;color: #9B9B9B;">{{item.created_time}}</span><br />
+											<span style="font-size: 14px;color: #222;"><strong>{{item.arise_money}}</strong></span>
+										</div>
+									</div>
+						    	</a>
+						    </div>
+				    	</div>
+		            </div>
+		            
+				
+				<script type="text/javascript">
+					
+					$(function(){
+					    $(".row li").click(function() {
+					        $(this).siblings('li').children('a').removeClass('active');  // 删除其兄弟元素的样式
+					        $(this).children('a').addClass('active');                    // 为点击元素添加类名
+					    });
+					});
+				</script>
+		    </div>
+		</div>
+		
+		
+	</body>
+	<script src="js/jquery-1.7.1.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/menu.js"></script>
+	<script type="text/javascript">
+		mui.back = function() {
+			setTimeout(function(){//延后显示可避免低端机上动画时白屏
+				mui.openWindow(openWinParam_back('myInfo.html'));
+				self.close();
+			},200);
+		}
+		var userInfo = new Vue({
+				el: "#userInfo",
+				data:{
+					userInfo:[]
+				},
+				created: function(){
+					// 初始化选项卡
+					var item = getUrlParam("class");   //获取地址参数
+					if(item == 'item1'){
+						$("#class1").addClass("mui-active");
+						$("#item1").addClass("mui-active");
+					}else if(item == 'item2'){
+						$("#class2").addClass("mui-active");
+						$("#item2").addClass("mui-active");
+					}else if(item == 'item3'){
+						$("#class3").addClass("mui-active");
+						$("#item3").addClass("mui-active");
+					}
+					this.getUserInfo();
+				},
+				methods:{
+					
+					getUserInfo :function(){
+							
+						var that = this;
+						that.$http.post('/o2app/getMemberInfo',{}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast("请先登录");
+								mui.openWindow(openWinParam('login.html'));
+								self.close();
+							}else{
+								this.userInfo = json.data;
+								$("#money").html(this.userInfo.money);
+								$("#balance_money").html(this.userInfo.balance_money);
+								$("#commission_money").html(this.userInfo.commission_money);
+							}
+						})	
+					}
+				}
+			});
+		
+		
+		
+		new Vue({
+			el: "#getAccount1",
+			data:{
+				Account:[]
+			},
+			created: function(){
+				this.getAccount(0);
+			},
+			methods:{
+				
+				getAccount :function(type){
+						
+					var that = this;
+					that.$http.post('/o2app/getAccountDetails',{'type':type}, VUE_HEADER).then(function(response){
+						var json  = toJSON(response.data);
+						if(json.result==0){
+							mui.toast(json.msg);
+						}else{
+							this.Account = json.data;
+						}
+					})	
+				}
+			}
+		});
+		
+		new Vue({
+			el: "#getAccount2",
+			data:{
+				Account:[]
+			},
+			created: function(){
+				this.getAccount(1);
+			},
+			methods:{
+				
+				getAccount :function(type){
+						
+					var that = this;
+					that.$http.post('/o2app/getAccountDetails',{'type':type}, VUE_HEADER).then(function(response){
+						var json  = toJSON(response.data);
+						if(json.result==0){
+							mui.toast(json.msg);
+						}else{
+							this.Account = json.data;
+						}
+					})	
+				}
+			}
+		});
+		
+		new Vue({
+			el: "#getAccount3",
+			data:{
+				Account:[]
+			},
+			created: function(){
+				this.getAccount(2);
+			},
+			methods:{
+				
+				getAccount :function(type){
+						
+					var that = this;
+					that.$http.post('/o2app/getAccountDetails',{'type':type}, VUE_HEADER).then(function(response){
+						var json  = toJSON(response.data);
+						if(json.result==0){
+							mui.toast(json.msg);
+						}else{
+							this.Account = json.data;
+						}
+					})	
+				}
+			}
+		});
+	</script>
+</html>

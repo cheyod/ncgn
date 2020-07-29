@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/menu.css"/>
+		<style type="text/css">
+			ul,li{margin: 0;padding: 0;list-style: none;}
+			header{height: 190px;background-color: #2E3040;}
+			.header_img{width: 70px;height: 70px;margin: auto;}
+			.header_img img{width: 100%;height: 100%;margin-top: 55px;border-radius: 40px;}
+			header p{text-align: center;margin-top: 55px;}
+			header p a{font-size: 15px;color: #FFF;}
+			.item{background-color: #FFF;}
+			.price{height: 150px;}
+			.price p{text-align: center;font-size: 15px;color: #999;}
+			.price p:nth-child(2){font-weight: bold;color: #000;font-size: 20px;}
+			.price p:first-child{padding-top: 32px;}
+			.account{height: 56px;background-color:#FFF;}
+			.account li{float: left;height:37px;text-align: center;width: 33%;border-right: 1px solid #E5E5E5;font-size: 13px;color: #ccc;}
+			/*.account li:nth-child(3){border: none;}*/
+			.account li a{color: #000;}
+			.account li span{display: block;color: #00BB55;}
+			.item .row{clear:both;height: 53px;line-height: 53px;font-size: 15px;color: #404040;}
+			.right{font-size: 13px;color: #999;}
+			.order{clear: both;height:100px;}
+			.order li{float: left;width: 25%;text-align: center;margin-top: 10px;}
+			.order li a{display: block;width: 100%;}
+			.order li a img{width: 30px;}
+			.order li span{display: block;font-size: 12px;color: #4A4A4A;}
+			.fl{float: left;}
+			.fr{float: right;}
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {	
+			mui.oldBack = mui.back;
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					backButtonPress++;
+					if (backButtonPress > 1) {
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				}
+//				var currentView = plus.webview.currentWebview();
+//				currentView.show('none', 500);
+//				plus.nativeUI.closeWaiting();
+			});
+		</script>
+		
+		<header id="userInfo">
+	    	<div class="header_img">
+	    		<img src="images/head_portrait.png"/ id="photo">
+	    	</div>
+	    	<p><a href="javascript:;" id="user_name">登录</a></p>
+		</header>
+		<div class="menu clearfix" id="menu">
+			<ul>
+				<li v-on:click="indexBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/vegetable_market2.png" alt="" />
+						</div>
+						<p>菜市</p>
+					</a>
+				</li>
+				<li v-on:click="informationBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/information.png" alt="" />
+						</div>
+						<p>资讯</p>
+					</a>
+				</li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+				<li v-on:click="shoppingcartBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<span class="mui-badge mui-badge-danger" id="Count" v-if="Count!=0"></span>
+							<img src="images/shopping_cart_n.png" alt="" />
+						</div>
+						<p>购物车</p>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/my2.png" alt="" />
+						</div>
+						
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="mui-content">
+
+			<div class="item">
+		    	<div class="price">
+		    		<p>当前账户总额</p>
+		    		<p id="total">0.00</p>
+		    		<p id="today_money">今日获得0</p>
+		    	</div>
+		    	<ul class="account" id="account">
+		    		<li>
+		    			<a href="javascript:;" @click="goAccount('item1')">
+			    			<span id="money">0</span>
+			    			现金帐户
+			    		</a>
+		    		</li>
+		    		<li>
+		    			<a href="javascript:;" @click="goAccount('item2')">
+			    			<span id="commission_money">0</span>
+			    			佣金账户
+			    		</a>
+		    		</li>
+		    		<li style="border: none;">
+		    			<a href="javascript:;" @click="goAccount('item3')">
+			    			<span id="balance_money">0</span>
+			    			余额账户
+			    		</a>
+		    		</li>
+		    	</ul>
+		    </div>
+
+		    
+		    <div class="item" style="margin-top: 11px;height: 141px;" id="Goorder">
+		    	<a href="javascript:;" @click="goOrderList('0')">
+		    		<div class="row">
+						<div class="fl" style="padding-left: 16px;">
+							我的订单
+						</div>
+						<div class="fr right" style="margin-right: 15px;">全部订单<i class="mui-icon mui-icon-arrowright right"></i></div>
+					</div>
+				</a>
+				<ul class="order">
+					<li>
+						<a href="javascript:;" @click="goOrderList('1')">
+							<img src="images/payment.png"/>
+							<span>待付款</span>
+						</a>
+					</li>
+					<li style="margin-top: 8px;">
+						<a href="javascript:;" @click="goOrderList('2')">
+							<img src="images/verification.png"/>
+							<span>待验证</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" @click="goOrderList('3')">
+							<img src="images/cancel.png"/>
+							<span>已取消</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" @click="goOrderList('4')">
+							<img src="images/complete.png"/>
+							<span>已完成</span>
+						</a>
+					</li>
+				</ul>
+		    	
+		    </div>
+		    <div class="item" style="margin-top: 11px;" id="recommend">
+		    	<a href="javascript:;" @click="goRecommend">
+		    		<div class="row">
+						<div class="fl" style="padding-left: 16px;">
+							推荐有礼
+						</div>
+						<div class="fr right" style="margin-right: 15px;"><i class="mui-icon mui-icon-arrowright right"></i></div>
+					</div>
+		    	</a>
+		    </div>
+		    <div class="item" style="margin-top: 11px;" id="address">
+		    	<a href="javascript:;" v-on:click="Address">
+		    		<div class="row">
+						<div class="fl" style="padding-left: 16px;">
+							我的地址
+						</div>
+						<div class="fr right" style="margin-right: 15px;"><i class="mui-icon mui-icon-arrowright right"></i></div>
+					</div>
+		    	</a>
+		    </div>
+		    <div class="item" style="margin-top: 11px;margin-bottom: 70px;" id="setting">
+		    	<a href="javascript:;" v-on:click="Setting">
+		    		<div class="row">
+						<div class="fl" style="padding-left: 16px;">
+							设置
+						</div>
+						<div class="fr right" style="margin-right: 15px;"><i class="mui-icon mui-icon-arrowright right"></i></div>
+					</div>
+		    	</a>
+		    </div>
+		</div>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/menu.js"></script>
+		<script type="text/javascript">
+			
+			var userInfo = new Vue({
+				el: "#userInfo",
+				data:{
+					userInfo:[]
+				},
+				created: function(){
+					this.getUserInfo();
+				},
+				methods:{
+					
+					getUserInfo :function(){
+							
+						var that = this;
+						that.$http.post('/o2app/getMemberInfo',{}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast("请先登录");
+								mui.openWindow(openWinParam('login.html'));
+								self.close();
+							}else{
+								this.userInfo = json.data;
+								if(this.userInfo.photo)
+								{
+								$("#photo").attr("src",RemoteImageSrc(this.userInfo.photo));
+								}
+								$("#user_name").html(this.userInfo.username);
+								$("#total").html(this.userInfo.total);
+								$("#today_money").html("今日获得："+this.userInfo.today_money);
+								$("#money").html(this.userInfo.money);
+								$("#balance_money").html(this.userInfo.balance_money);
+								$("#commission_money").html(this.userInfo.commission_money);
+							}
+						})	
+					}
+				}
+			});
+			new Vue({
+				el:"#setting",
+				methods:{
+					Setting:function(){
+						if(checkIsLogin() == true){
+							mui.openWindow(openWinParam('setting.html'));
+							self.close();
+						}else{
+							mui.toast("请先登录");
+							mui.openWindow(openWinParam('login.html'));
+							self.close();
+						}
+					}
+				}
+			});
+			new Vue({
+				el:"#address",
+				methods:{
+					Address:function(){
+						if(checkIsLogin() == true){
+							var member_id = userInfo.userInfo.member_id;
+							setTimeout(function(){//延后显示可避免低端机上动画时白屏
+								mui.openWindow(openWinParam('address_details.html?id='+member_id));
+								self.close();
+							},200);
+						}else{
+							mui.toast("请先登录");
+							mui.openWindow(openWinParam('login.html'));
+							self.close();
+						}
+					}
+				}
+			});
+			new Vue({
+				el:"#Goorder",
+				methods:{
+					goOrderList:function(item){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('order_list.html?class='+item));
+							self.close();
+						},200);
+					}
+				}
+			});
+			new Vue({
+				el:"#account",
+				methods:{
+					goAccount:function(item){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('account_details.html?class='+item));
+							self.close();
+						},200);
+					}
+				}
+			});
+			new Vue({
+				el:"#recommend",
+				methods:{
+					goRecommend:function(){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('recommend.html'));
+							self.close();
+						},200);
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

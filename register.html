@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+				
+		<!--<link href="css/lb.css" rel="stylesheet" />-->
+		<link href="css/base.css" rel="stylesheet" />
+		
+		<style>
+			.area{margin:20px auto 0px auto}
+			.mui-input-group{margin-top:10px}
+			.mui-input-group:first-child{margin-top:0px;padding-top:150px;}
+			.mui-input-group label{width:22%;font-size:16px;color:#333}
+			.mui-input-row label~input,.mui-input-row label~select,.mui-input-row label~textarea{width:78%}
+			.mui-checkbox input[type=checkbox],.mui-radio input[type=radio]{top:6px}
+			.mui-content-padded{margin-top:25px}
+			.mui-btn{padding:10px}
+			.link-area{display:block;margin-top:25px;text-align:center;margin-bottom:25px;}
+			.spliter{color:#bbb;padding:0px 8px}
+			.oauth-area{position:absolute;bottom:20px;left:0px;text-align:center;width:100%;padding:0px;margin:0px}
+			.oauth-area .oauth-btn{display:inline-block;width:50px;height:50px;background-size:30px 30px;background-position:center center;background-repeat:no-repeat;margin:0px 20px;border:solid 1px #ddd;border-radius:25px}
+			.oauth-area .oauth-btn:active{border:solid 1px #aaa}
+			.oauth-area .oauth-btn.disabled{background-color:#ddd}
+			
+			/*mui样式重置*/
+			#login-form{width:80%;margin:0 auto;}
+			.mui-content{background:#FFF!important;}
+			#forgetPassword{color:#333!important;font-size:16px;}
+			.mui-input-group label{margin-left:15px!important;margin-top:12px;}
+			.mui-btn-block{font-size:17px;display:block;width:85%;margin-bottom:10px;padding:10px 0;margin:0 auto;}
+			.mui-icon-eye{right:30px!important}
+			.mui-btn-primary{background-color:#01b786;border: 1px solid #01b786;}
+			.mui-input-group .mui-input-row{border-bottom:1px solid #dcdcdc;}
+			.mui-input-group input{font-size:16px;color:#333;width:88%;}
+			.reset{margin-bottom:100px;margin-top:100px;}
+			.reset p{color:#666;font-size:18px;font-weight:bold;}
+			.getverify-code-btn{display:inline-block;width:110px;height:36px;line-height:36px;text-align:center;box-sizing:border-box;vertical-align:middle;cursor:pointer;color:#00bb55;border-radius:3px;right:-10px;top:2px;font-size:14px;border:0}	
+			.mui-input-row label{padding:0!important;}
+			#j_phone{width:70%!important;}
+			.mui-input-row img{width:15px;vertical-align:middle;margin-left:8px;}
+			.mui-input-group .mui-input-row{height:50px!important;line-height:50px}
+			.logo img{width:25%;}
+			.mui-input-group .mui-input-row:after{background-color:#fff!important;}
+			.mui-input-group:after{background-color:transparent;}
+			
+			#recommended_user1,#recommended_user2{display: none;}
+		</style>
+
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content" id="forgetPwd">
+			<div class="logo tc mb20 ">
+				<img src="images/logo.png" alt="" class="mt20"/>					
+			</div>
+				
+			<form id='login-form' class="mui-input-group">
+				
+				<div class="mui-input-row mb10">
+					<img src="images/mobile_phone_a@2x.png">
+					<input id='j_phone' type="number" class="mui-input-clear mui-input phone" v-model.trim="register.telphone" placeholder="请输入手机号码">
+				</div>
+				
+				<div class="mui-input-row ps-r mb10">
+					<img src="images/verification@2x.png">
+					<input type="number" class="mui-input-clear mui-input code" v-model.trim="register.checkNum" placeholder="请输入验证码 ">
+					<div id="j_getVerifyCode" class="getverify-code-btn ps-a" >获取验证码</div>
+				</div>
+				
+				<div class="mui-input-row mb10">
+					<img src="images/mi_a@2x.png">
+					<input type="password" class="mui-input-clear mui-input psw"  placeholder="请输入8-16位数字和字母" v-model.trim="register.password">
+				</div>
+
+				<div class="mui-input-row mb10">
+					<img src="images/mi_a@2x.png">
+					<input type="password" class="mui-input-clear mui-input psw2" placeholder="请再一次输入密码" >
+				</div>
+
+				<!--<div class="mui-input-row mb10" style="visibility:hidden;">-->
+				<div class="mui-input-row mb10" id="recommended_user1">
+					<img src="images/people_a@2x.png" class="">
+					<input type="text" class="mui-input-clear mui-input recommended_user"  placeholder="推荐人手机号码(选填)" v-model.trim="register.recommended_user">
+				</div>
+				
+				<div class="mui-input-row mb10" id="recommended_user2">
+					<img src="images/people_a@2x.png" class="">
+					<input type="text" class="mui-input recommended_user"  placeholder="推荐人手机号码(选填)" v-model.trim="register.recommended_user" readonly="readonly">
+				</div>
+			</form>
+			
+			<div class="mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary" @click="registerBtn()">注册</button>
+			</div>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>  
+		<script src="js/base.js"></script>  
+		<script src="js/getVerifyCode.js"></script>
+		
+		<script>
+			mui.back=function () {
+				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+					mui.openWindow(openWinParam('login.html'));
+					self.close();
+				},200);
+			}
+			//获取地址参数
+			function getUrlParam(name) {   
+			      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");   
+			      var r = window.location.search.substr(1).match(reg);   
+			      if (r != null) return decodeURI(r[2]); return null;   
+			}
+			var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(19[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+			var recommended_user = getUrlParam("phone");   //邀请人号码
+			if(recommended_user == null){
+				$("#recommended_user1").show();
+			}else{
+				$("#recommended_user2").show();
+			}
+			// console.log(recommended_user);
+			
+			var vm = new Vue({
+				el:'#forgetPwd',
+				data:{
+					register:{
+						telphone:"",          //手机号码
+						checkNum:"", 		   //验证码
+						password:"",	   //密码
+						recommended_user:recommended_user,     //推荐人号码
+					},
+					urlGetCode:'/send_sms.php',    //获取验证码
+					//urlCheckCode:'/web3_0.php?action=checkphonecode',  //提交检查验证码	
+					registerUrl:'/register.php',      //注册
+				},
+				created:function(){
+					
+				},
+				methods:{
+					//获取验证码,  同时检测手机号是否存在
+					getCode: function(){
+						mui.plusReady(function(){
+							plusReady(); //网络检测
+						});
+						var ph = this.register.telphone;
+						if(!ph){mui.alert("您的手机号不能为空");return}
+						if(!myreg.test(ph))
+						{ 
+						    mui.alert('手机号格式不正确！'); 
+						    return false; 
+						} 
+						
+//						post(this.urlGetCode, {'telphone':ph}, function(json){	
+//							if(json.result == 1)
+//						  	{
+//								mui.alert("验证码发送成功");		
+//							}
+//							else{
+//								mui.alert(json.msg);
+//							}
+//						},'json');
+
+						this.$http.post('/o2app/sendphone',{'phone':ph}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result == 0){
+								mui.toast(json.msg);
+							}
+						});
+						
+					},				
+					//注册
+					registerBtn:function(){
+						var telphone = this.register.telphone;    //手机号码
+						var password = this.register.password;	  //密码
+						var checkNum = this.register.checkNum;	  //验证码
+						var psw2 = $(".psw2").val();     //确认密码
+						var recommended_user = this.register.recommended_user;   //推荐人
+						// if(!telphone){mui.alert("您的手机号不能为空");return false;}
+						if(!myreg.test(telphone))
+						{ 
+						    mui.alert('手机号格式不正确！'); 
+						    return false; 
+						} 
+						if(!checkNum){mui.alert("您的验证码不能为空");return false;}	
+						else if(password!=psw2){
+							mui.alert('两次密码不一致，请重新输入'); 
+						    return false; 
+						}
+
+//						post(this.registerUrl, {'telphone':telphone,'password':password,'checkNum':checkNum,'recommended_user':recommended_user}, function(json)
+//						{	
+//							if(json.result == 1)
+//						  	{
+//						  		mui.alert("注册成功！");
+//								setTimeout(function(){
+//									location.href="download.html";			
+//								},1000);
+//								
+//							}
+//							else{
+//								mui.alert(json.msg);
+//							}
+//						},'json');
+
+						this.$http.post('/o2app/register',{'phone':telphone,'p_phone':recommended_user,'password':password,'code':checkNum}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result == 0){
+								mui.toast(json.msg);
+							}else{
+								mui.toast("注册成功");
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('login.html'));
+									self.close();
+								},200);
+							}
+						});
+					}
+				}
+					
+			});
+			
+		    $(function() {
+		        //获取手机验证码
+		        $("#j_getVerifyCode").on("click", getVerifyCode({
+		            callBack: function() { //按钮点击后的回调函数，-----必须-----
+		                //在这里你还是可以对你的按钮进行操作
+		                //console.log(this);
+		                vm.getCode();
+		            },
+		            time: 60,
+		            //定时时间，以秒为单位，默认60秒       
+		            getCurrentTime: function(time) { //获取倒计时当前时间
+		                console.log(time);
+		               // console.log(this); //这里的这个this执行按钮
+		                //console.log("=================================");
+		            },
+		            isPhone: true,
+		            //是否为发送手机验证码，如果是则会验证手机号格式，-----必须-----
+		            getPhone: function() { //获取手机号，此处一定要return
+		                return $("#j_phone").val();
+		            },
+		            //phoneReg: /^1[34578]\d{9}$/,//手机号验证正则
+		            phoneCallBack: function() { //当手机号有误时的回调，默认会中止操作
+		                //mui.alert("您输入的手机号有误!");
+		            },
+		            timeIsUpText: "重新发送",
+		            //倒计时时间到了后按钮所显示文字
+		            timeRunnigText: "s后重新发送",
+		            //倒计时时间正在走的时候按钮所显示文字。默认为"xxs后重新获取"
+		            unabledClass: "unlabed" //按钮不能用的样式，即点击按钮后的样式
+		        }));
+	
+		    });
+			
+		</script>
+	</body>
+
+</html>

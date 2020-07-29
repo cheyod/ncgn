@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link href="css/style.css" rel="stylesheet" />-->
+		<link href="css/base.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/getVerifyCode.js"></script>
+		<script src="js/mui.min.js"></script>
+		<!--<script type="text/javascript" src="js/common.js"></script>-->
+		<script src="js/app.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>
+		<style>
+			.area{margin:20px auto 0px auto}
+			.mui-input-group:first-child{margin-top:20px}
+			.mui-input-group label{width:22%}
+			.mui-input-row label~input,.mui-input-row label~select,.mui-input-row label~textarea{width:78%}
+			.mui-checkbox input[type=checkbox],.mui-radio input[type=radio]{top:6px}
+			.mui-bar-nav~.mui-content {padding-top: 67px;}
+			.mui-content-padded{margin-top:25px}
+			.mui-btn{padding:10px}
+			.mui-input-row label~input,.mui-input-row label~select,.mui-input-row label~textarea{margin-top:1px}
+		
+			.mui-input-group{background-color:transparent;}
+			.mui-input-group span{display:block;padding:15px 0 0 10px;margin-bottom:15px;}
+			.mui-input-group:before,.mui-input-group .mui-input-row:after,.mui-input-group:after{background-color:transparent;}
+			.mui-input-group .mui-input-row{margin:0 10px;}
+			.mui-input-group input,.mui-input-group textarea{border:0;border-radius:0;background-color:transparent;-webkit-box-shadow:none;box-shadow:none;border:1px solid #e5e5e5;border-radius:5px;height:38px;background:#FFF;}
+			.mui-input-row .mui-input-clear~.mui-icon-clear, .mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech{top:-7px;}
+			.phone{width:150px;height:40px;box-sizing:border-box;outline:none;padding:0 10px}
+			.getverify-code-btn{display:inline-block;width:100px;height:36px;line-height:36px;text-align:center;background-color:#00BB55;box-sizing:border-box;vertical-align:middle;cursor:pointer;color:#fff;border-radius:3px;right:2px;top:1px;font-size:14px;}
+			.old-phone{color:#333;padding-left:15px;font-size:16px;}
+			.tips{color:#E37757;font-size:14px;padding-left:10px;padding-top:15px;}
+			
+			
+        	.mui-btn-primary{background: linear-gradient(to bottom right, #01D068,#02B887);border: none!important;}
+        	
+		</style>
+		</head>
+<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改绑定手机号码</h1>
+		</header>-->
+		<header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">修改绑定手机号码</h1>
+   		 </header>
+		<div class="mui-content" id="forget-Pwd">
+			<form class="mui-input-group">
+				<p class="old-phone">原手机：{{perPhone.username}}</p>				
+				<div class="mui-input-row ps-r mb10">
+					<input type="text" id="j_phone" class="phone" placeholder="新手机号码" v-model.trim="forgetPwd.phone">
+					<div id="j_getVerifyCode" class="getverify-code-btn ps-a" v-on:click="checkphone">获取验证码</div>
+				</div>
+				
+				<div class="mui-input-row">
+					<input id="psw2" type="text" class="mui-input-clear mui-input" data-input-password="3" placeholder="验证码" v-model.trim="forgetPwd.code">
+				</div>
+				<p class="tips">重新绑定后，之前绑定的手机号将不能作为登录凭证</p>					
+				
+			</form>
+			<div class="mui-content-padded">
+				<button id='nextStep' class="mui-btn mui-btn-block mui-btn-primary" v-on:click="getmodifyphone">确定</button>
+			</div>
+		</div>
+		
+		
+	
+		<script type="text/javascript">
+		mui.init();
+//		var oldback = mui.back;
+//		mui.back = function() {
+//			mui.currentWebview.opener().show('pop-out');
+//		    oldback();
+//		}
+		var vm = new Vue({
+				el:'#forget-Pwd',
+				data:{
+					forgetPwd:{
+						phone:"",
+						code:""
+					},
+					perPhone:{
+						phone:""
+					},
+					urlPhone:'/o2app/getMemberInfo',
+					urlGetCode:'/o2app/getCodeByPhone',
+					urlCheckCode:'/o2app/checkCode',
+					urlcheckphone:'/o2app/getbyphone',
+					urlmodifyphone:'/o2app/modifyphone'
+				},
+				created:function(){
+					this.getpPhone()
+				},
+				methods:{
+					checkphone:function(){
+						var ph1=this.forgetPwd.phone;
+						
+						if(!ph1){mui.alert("您的手机号不能为空");return}
+						this.$http.post(this.urlcheckphone,{phone:ph1},VUE_HEADER_JSON).then(function(res){
+							var json1 = toJSON(res.data);
+							if(json1.data.length>0){
+								//mui.alert("验证码发送成功");
+								mui.alert("手机号码已注册");
+							}else{
+								this.getCode();
+							}
+						})
+					},
+					
+					getCode: function(){
+						var ph1=this.forgetPwd.phone;
+						if(!ph1){mui.alert("您的手机号不能为空");return}
+						this.$http.post(this.urlGetCode,{phone:ph1,type:2},VUE_HEADER_JSON).then(function(res){
+							var json1 = toJSON(res.data);
+							if(json1.result == 1){
+								mui.alert("验证码发送成功");
+							}
+						})
+					},
+					
+					gotoNext:function(){
+						this.$http.post(this.urlCheckCode,{phone:phone,code:code},VUE_HEADER_JSON).then(function(res2){
+						var json2=toJSON(res2.data);
+						if(json2.data.length>0)
+						{
+							this.getmodifyphone();
+						}
+					})
+					},
+					
+					getmodifyphone:function(){
+						this.$http.post(this.urlmodifyphone,{},VUE_HEADER_JSON).then(function(res2){
+						var json2=toJSON(res2.data);
+						if(json2.result == 1)
+						{
+							mui.alert("手机号码修改成功", "确定", function(e) 
+				    		{
+//				    			var param = openWinParam('login.html');
+//								if(param.extras){
+//									param.extras.forbidBack = 1;
+//								}else{
+//									param.extras = {forbidBack:1};
+//								}
+//								mui.openWindow(param,false);
+//								location.href='login.html';
+								
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('login.html'));;
+									self.close();
+								},200);
+					     })
+						}
+					})
+					},
+					
+					
+					
+					
+					
+					getpPhone:function(){
+						var ph3=this.perPhone.phone;
+						
+						this.$http.post(this.urlPhone,{},VUE_HEADER_JSON).then(function(res3){
+							var json3=toJSON(res3.data);
+							if(json3.result == 1)
+							{
+								this.perPhone=json3.data;
+							
+							}
+						})
+					}
+					
+				}
+			});
+			
+			
+	    $(function() {
+	        //获取手机验证码
+	        $("#j_getVerifyCode").on("click", getVerifyCode({
+	            callBack: function() { //按钮点击后的回调函数，-----必须-----
+	                //在这里你还是可以对你的按钮进行操作
+	                //console.log(this);
+	                //alert("验证码发送成功");
+	            },
+	            time: 120,
+	            //定时时间，以秒为单位，默认60秒
+	            getCurrentTime: function(time) { //获取倒计时当前时间
+	                console.log(time);
+	                console.log(this); //这里的这个this执行按钮
+	                console.log("=================================");
+	            },
+	            isPhone: true,
+	            //是否为发送手机验证码，如果是则会验证手机号格式，-----必须-----
+	            getPhone: function() { //获取手机号，此处一定要return
+	                return $("#j_phone").val();
+	            },
+	            //phoneReg: /^1[34578]\d{9}$/,//手机号验证正则
+	            phoneCallBack: function() { //当手机号有误时的回调，默认会中止操作
+	                mui.alert("您输入的手机号有误");
+	            },
+	            timeIsUpText: "重新发送",
+	            //倒计时时间到了后按钮所显示文字
+	            timeRunnigText: "s后重新发送",
+	            //倒计时时间正在走的时候按钮所显示文字。默认为"xxs后重新获取"
+	            unabledClass: "unlabed" //按钮不能用的样式，即点击按钮后的样式
+	        }));
+
+	    });
+	</script>
+	
+		</body>
+
+</html>	

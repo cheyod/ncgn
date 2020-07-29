@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/menu.css"/>
+		<style type="text/css">
+			* { touch-action: none; }
+			.row{height: 50px;background-color: #FFF;margin: 0;padding: 0;width: 100%;z-index: 999;position: fixed;top:40px}
+			.row li{float: left;margin: 0 2.5%;width: 45%;line-height: 46px;text-align: center;font-size: 13px;}
+			.row li a{color: #666;display: block;width: 100%;height: 100%;}
+			.active{border-bottom: 4px solid #00BD52;}
+			.commodity{margin:0 10px;padding: 0;}
+			.commodity li{float: left;width: 49%;margin: 10px 0;}
+			.commodity li:nth-child(odd){margin-right: 2%;}
+			.commodity_img{width: 100%;}
+			.commodity_img img{width: 100%;min-height: 130px;}
+			.commodity_text p{padding-left:10px;width: 50%;margin: 0;font-size: 12px;color: #3E3E3E;}
+			.commodity .add{width: 20px;height: 20px;float:right;position: relative;right: 10px;bottom: 20px;}
+			.commodity .add img{width: 100%;}
+			
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{width: 100%;height: 50px;position: initial;}
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{display: block;}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{color: #00BD52;border-bottom: 4px solid #00BD52;}
+			.mui-segmented-control .mui-control-item{line-height: 45px;}
+			
+			
+			input[type=search]{background-color: #fff;}
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<!--<div class="menu clearfix" id="menu">
+			<ul>
+				<li v-on:click="indexBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/vegetable_market.png" alt="" />
+						</div>
+						<p>菜市</p>
+					</a>
+				</li>
+				<li v-on:click="informationBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/information.png" alt="" />
+						</div>
+						<p>资讯</p>
+					</a>
+				</li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+				<li v-on:click="shoppingcartBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<span class="mui-badge mui-badge-danger" id="Count" v-if="Count!=0"></span>
+							<img src="images/shopping_cart_n.png" alt="" />
+						</div>
+						<p>购物车</p>
+					</a>
+				</li>
+				<li v-on:click="myBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/my.png" alt="" />
+						</div>
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</div>-->
+		<header class="mui-bar mui-bar-nav" style="position: fixed;top: 0px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <div class="mui-input-row mui-search" id="search" style="clear: inherit;">
+			    <input type="search" class="mui-input-clear" placeholder="搜索商品"  id="searchInput" @keyup.enter="goSearch()">
+			</div>
+		</header>
+		
+		<div class="mui-scroll-wrapper" style="margin: 60px 0 40px 0;">
+		    <div class="mui-scroll">
+				<script src="js/mui.min.js"></script>
+				<script src="js/jquery-1.7.1.js"></script>
+				<script src="js/vue.js"></script>
+				<script src="js/vue-resource.js"></script>
+				<script src="js/base.js"></script>
+				<script src="js/menu.js"></script>
+				<script type="text/javascript">
+					mui.init()
+				</script>
+		    	<script type="text/javascript">
+					$('#scroll').scroll({
+						indicators: true //是否显示滚动条
+					});
+					mui('.mui-scroll-wrapper').scroll({
+						deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+						scrollY: true, //是否竖向滚动
+						scrollX: false, //是否横向滚动
+						indicators: false, //是否显示滚动条
+						bounce: true //是否启用回弹
+					});
+				</script>
+				
+				<div class="mui-content">
+					
+				 	<div id="item1" class="mui-slider-item mui-control-content mui-active" >
+				 		<ul class="commodity" id="searchlist">
+				 			
+			 				<li v-for="data in commoditys">
+			 					<a href="javascript:;" v-on:click="getCommodityDetails(data.id)">
+					 				<div class="commodity_img">
+									   	<img  v-bind:src="data.cover_img==null ? 'images/img_2.png' : data.cover_img|RemoteImage"/>
+					 				</div>
+					 				<div class="commodity_text">
+					 					<p>{{data.name}}</p>
+					 					<p>{{data.price}}/{{data.unit}}</p>
+					 					
+					 				</div>
+				 				</a>
+				 				<span class="add" v-on:click="setcart(data.id,data.supply_id)"><img src="images/shopping_cart.png"/></span>
+				 			</li>
+				 		</ul>
+				 	</div>
+				 	
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<script type="text/javascript">
+			var nativeWebview, imm, InputMethodManager;  
+			var initNativeObjects = function() {  
+			    if (mui.os.android) {  
+			        var main = plus.android.runtimeMainActivity();  
+			        var Context = plus.android.importClass("android.content.Context");  
+			        InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");  
+			        imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);  
+			    } else {  
+			        nativeWebview = plus.webview.currentWebview().nativeInstanceObject();  
+			    }  
+			};  
+			var showSoftInput = function() {  
+			    if (mui.os.android) {  
+			        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);  
+			    } else {  
+			        nativeWebview.plusCallMethod({  
+			            "setKeyboardDisplayRequiresUserAction": false  
+			        });  
+			    }  
+//			    setTimeout(function() {  
+			       //此处可写具体逻辑设置获取焦点的input  
+			       var inputElem = document.querySelector('input');  
+			              inputElem.focus();   
+//			    }, 0);  
+			};  
+			mui.plusReady(function() {  
+			    initNativeObjects();  
+			    showSoftInput();  
+			});  
+			mui.back=function () {
+				var item = getUrlParam("class");   //获取地址参数
+				if(item == null){
+					setTimeout(function(){//延后显示可避免低端机上动画时白屏
+						mui.openWindow(openWinParam_back('index.html'));
+						self.close();
+					},200);
+				}else{
+					setTimeout(function(){//延后显示可避免低端机上动画时白屏
+						mui.openWindow(openWinParam_back('commodity_list.html?class='+item));
+						self.close();
+					},200);
+				}
+				
+			}
+			
+			// 搜索
+			new Vue({
+				el:"#search",
+				data:{
+					
+				},
+				created: function(){
+					
+				},
+				methods:{
+					goSearch:function(){
+						var keyword = $("#searchInput").val();
+						var that = this;
+						that.$http.post('/o2app/getSearchList',{'keyword':keyword}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							searchlist.commoditys = json.data;
+							if(json.data.length == 0){
+								mui.toast("暂无搜索结果");
+							}
+						})
+
+					}
+				}
+			})
+			
+			
+			//搜索专区
+			var searchlist = new Vue({
+				el: "#searchlist",
+				data:{
+					commoditys:[]
+				},
+				created: function(){
+//					var keyword = getUrlParam("keyword");   //获取地址参数
+				},
+				methods:{
+					
+					getSearchList :function(){
+						
+						var keyword = $("#searchInput").val();
+						var that = this;
+						that.$http.post('/o2app/getSearchList',{'keyword':keyword}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							this.commoditys = json.data;
+							
+						})	
+					},
+					getCommodityDetails: function(id){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('commoditydetails.html?id='+id));
+							self.close();
+						},200);
+					},
+					setcart:function(id,supply_id){
+						var that = this;
+						that.$http.post('/o2app/setShoppingCart',{'goods_id':id,'supply_id':supply_id,'count':1,'type':1}, VUE_HEADER_JSON).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast(json.msg);
+							}else{
+								mui.toast("添加成功");
+								menu.getCartCount();
+							}
+						})	
+						
+					}
+				}
+			});
+			
+			
+		</script>
+	</body>
+
+</html>

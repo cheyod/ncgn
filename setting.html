@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link href="css/style.css" rel="stylesheet" />-->
+		<link href="css/base.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>
+		<!--<script type="text/javascript" src="js/common.js"></script>-->
+		<style>
+			/*html,body{background-color:#efeff4}*/
+			.mui-views,.mui-view,.mui-pages,.mui-page,.mui-page-content{position:absolute;left:0;right:0;top:0;bottom:0;width:100%;height:100%;background-color:#efeff4}
+			.mui-pages{top:46px;height:auto}
+			.mui-scroll-wrapper,.mui-scroll{background-color:#efeff4}
+			.mui-page.mui-transitioning{-webkit-transition:-webkit-transform 200ms ease;transition:transform 200ms ease}
+			.mui-page-left{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+			.mui-ios .mui-page-left{-webkit-transform:translate3d(-20%,0,0);transform:translate3d(-20%,0,0)}
+			.mui-navbar{position:fixed;right:0;left:0;z-index:10;height:44px;background-color:#f7f7f8}
+			.mui-navbar .mui-bar{position:absolute;background:transparent;text-align:center}
+			.mui-android .mui-navbar-inner.mui-navbar-left{opacity:0}
+			.mui-ios .mui-navbar-left .mui-left,.mui-ios .mui-navbar-left .mui-center,.mui-ios .mui-navbar-left .mui-right{opacity:0}
+			.mui-navbar .mui-btn-nav{-webkit-transition:none;transition:none;-webkit-transition-duration:.0s;transition-duration:.0s}
+			.mui-navbar .mui-bar .mui-title{display:inline-block;position:static;width:auto}
+			.mui-page-shadow{position:absolute;right:100%;top:10px;width:16px;height:100%;z-index:-1;content:''}
+			.mui-page-shadow{background:-webkit-linear-gradient(left,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%);background:linear-gradient(to right,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%)}
+			.mui-navbar-inner.mui-transitioning,.mui-navbar-inner .mui-transitioning{-webkit-transition:opacity 200ms ease,-webkit-transform 200ms ease;transition:opacity 200ms ease,transform 200ms ease}
+
+			.mui-page .mui-table-view:last-child{margin-bottom:30px}
+			.mui-table-view:after{height:0}
+			.mui-table-view span.mui-pull-right{color:#999}
+			.mui-table-view-divider{background-color:#efeff4;font-size:14px}
+			.mui-table-view-divider:before,.mui-table-view-divider:after{height:0}
+			.mui-locker{margin:35px auto;display:none}
+			.mui-table-view-cell img{width:17px;margin-right:10px;vertical-align:text-bottom;}
+			.mui-bar .mui-btn .mui-icon{color:#FFF;}
+			.mui-table-view{background:transparent;}
+			.mui-table-view-cell{background:#FFF;}
+			.mui-table-view-cell:after{left:0;}
+			.mui-navigate-right{color:#051b28;}
+			.mui-page-content{padding-top:58px;}
+			.btn{background: linear-gradient(to bottom right, #01D068,#02B887);border: none;}
+			
+		</style>
+		<link rel="stylesheet" type="text/css" href="./css/feedback-page.css" />
+	</head>
+		<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		 <!--<div class="mui-navbar-inner mui-bar mui-bar-nav" id="personBtn">
+			<button type="" class="mui-left mui-btn  mui-btn-link mui-btn-nav mui-pull-left" v-on:click="personBack">
+				<span class="mui-icon mui-icon-left-nav"></span>
+			</button>
+			<h1 class="mui-center mui-title">设置</h1>
+		</div>-->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:;"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<!--页面主结构开始-->
+		<!--<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar">
+				</div>
+				<div class="mui-pages">
+				</div>
+			</div>
+		</div>-->
+		<!--页面主结构结束-->
+		<!--单页面开始-->
+		<div id="setting" class="mui-page">
+			<!--页面标题栏开始-->
+			<!--<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<a class="mui-icon mui-icon-left-nav mui-pull-left" href="javascript:;"></a>
+				
+				<h1 class="mui-center mui-title">设置</h1>
+			</div>-->
+			<!--页面标题栏结束-->
+			<!--页面主内容区开始-->
+			<div class="mui-page-content">
+				<ul class="mui-table-view mui-table-view-chevron" style="margin-top: 16px;">
+					<li id="person_info" class="mui-table-view-cell" v-on:click="personInfoBtn">
+						<a class="mui-navigate-right"><img src="images/wo.png" alt="" />个人信息</a>
+					</li>
+				
+					<li id="usersafe" class="mui-table-view-cell mb15" v-on:click="usersafeBtn">
+						<a class="mui-navigate-right"><img src="images/zhanghuanquan.png" alt="" />账户安全</a>
+					</li>
+					
+					<li id="about" class="mui-table-view-cell" v-on:click="aboutBtn">
+						<a class="mui-navigate-right"><img src="images/guanyu.png" alt="" />关于</a>
+					</li>
+				</ul>
+				
+				<ul class="mui-table-view mt20">
+					<li id="exit" class="mui-table-view-cell" style="text-align: center;">
+						<a class="mui-btn-danger btn" style="color:#FFF;" v-on:click="getexit">退出</a>
+					</li>
+				</ul>
+			</div>
+			<!--页面主内容区结束-->
+		</div>
+	</body>
+
+	<script>
+		mui.init();	
+		mui.back=function () {
+			mui.openWindow({
+				url: 'myInfo.html',
+				id: 'myInfo',
+				preload: true,
+				createNew:true,
+				show:{
+					autoShow: true, //页面loaded事件发生后自动提示，默认为true
+			        aniShow: "slide-in-right", //页面显示动画，默认为“slide-in-right”
+		            duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒
+				},
+				styles: {
+					popGesture: 'hide'
+				},
+				waiting:{
+//					autoShow: true, //自动显示等待框，默认为true  
+//		        	title: '正在加载...', //等待对话框上显示的提示内容  
+					autoShow:false
+				}
+			});
+		}
+		new Vue({
+			el:'#setting',
+			data:{
+				url:'/o2app/m_logout'
+			},
+			methods:{
+				getexit:function(){
+					this.$http.post(this.url,{},VUE_HEADER_JSON).then(function(res){
+						var json=toJSON(res.data);
+						if(json.result == 0)
+						{
+							clearLogin();
+//							plus.webview.currentWebview().close();
+//							mui.fire(plus.webview.getLaunchWebview(),'refreshPage');
+							
+							
+							setTimeout(function(){//延后显示可避免低端机上动画时白屏
+								mui.openWindow(openWinParam("index.html"));
+								self.close();
+							},200);
+						}
+						
+					})
+				},
+				personInfoBtn:function(){
+					setTimeout(function(){//延后显示可避免低端机上动画时白屏
+						mui.openWindow(openWinParam("person_info.html"));
+						self.close();
+					},200);
+					//location.href="person_info.html";
+				},
+				usersafeBtn:function(){
+					setTimeout(function(){//延后显示可避免低端机上动画时白屏
+						mui.openWindow(openWinParam("user_safe.html"));
+						self.close();
+					},200);
+					
+					//location.href="user_safe.html";
+				},
+				aboutBtn:function(){
+					setTimeout(function(){//延后显示可避免低端机上动画时白屏
+						mui.openWindow(openWinParam("about.html"));
+						self.close();
+					},200);
+					
+				}
+			}
+		})
+		
+//		new Vue({
+//			el:"#personBtn",
+//			methods:{
+//				personBack:function(){
+//					mui.openWindow({
+//						url: 'person.html',
+//						id: 'person',
+//						preload: true,
+//						show: {
+//							aniShow: 'pop-out'
+//						},
+//						styles: {
+//							popGesture: 'hide'
+//						},
+//						waiting: {
+//							autoShow: false
+//						}
+//					});
+//				}
+//			}
+//		})
+	</script>
+
+</body>
+
+</html>

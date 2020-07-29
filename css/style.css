@@ -1,0 +1,10 @@
+body{width:100%;height:100%;margin:0px;padding:0px}
+.ui-page-login, .mui-content{height: 100%;}
+
+/*重写*/
+.mui-title{font-size:18px!important;}
+.mui-bar-nav.mui-bar .mui-icon{color:#FFF}
+.mui-icon-eye{right:30px!important;right:30px!important;position:absolute;top:8px;}
+.mui-btn-primary{background-color:#0098FF!important;border: 1px solid #0098FF!important;}
+.mui-bar{background:#0098FF;padding-top: 20px;height: 58px;}
+.mui-bar .mui-title{color:#FFF;}

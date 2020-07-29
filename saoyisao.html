@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			html,body{background-color:#00C377;}
+			.mui-bar{background-color:#00C377;}
+			.mui-title{color: #FFF;}
+			.mui-icon{color: #FFF;}
+			.mui-content{background-color:#00C377;}
+			.erweima{width: 90%;margin: 20px auto;background-color: #FFF;height: 400px;border-radius: 10px;text-align: center;}
+			.erweima span{display:block;margin-top: 10px;}
+			#code{padding-top: 100px;}
+			.btn{display:block;width: 100%;text-align:center;clear: both;color: #ccc;font-size: 14px;border: none;position: absolute;bottom: 20px;}
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/base.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+		</script>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">扫一扫</h1>
+		</header>
+		<div class="mui-content">
+			<div class="erweima">
+				<div id="code"></div>
+				<div>扫一扫成为我的会员</div>
+				<script type="text/javascript">
+					var phone = getUrlParam("phone");   //获取地址参数
+					$("#code").qrcode({ 
+					    render: "canvas", //canvas方式 
+					    width: 200, //宽度 
+					    height:200, //高度  
+					    text: 'http://o2.schoolwo.cn/register/register.html?phone='+phone, //任意内容 
+					    
+					}); 
+					
+					mui.back = function() {
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam_back('recommend.html'));
+							self.close();
+						},200);
+					}
+				</script>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

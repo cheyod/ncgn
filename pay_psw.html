@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link href="css/style.css" rel="stylesheet" />-->
+		<!--<link href="css/base.css" rel="stylesheet" />-->
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<!--<script type="text/javascript" src="js/common.js"></script>-->
+		<script src="js/app.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>
+		<style>
+			ul,li{list-style: none;padding: 0;margin: 0;}
+			.commodity{width: 100%;background-color: #fff;}
+			#price{display: block;text-align: center;line-height: 70px;font-size: 25px;color: #000000;margin: 0;}
+        	
+        	
+        	.mui-btn-primary{background: linear-gradient(to bottom right, #01D068,#02B887);border: none!important;margin-top: 30px;}
+        	.password{width: 90%;height:50px;margin: auto;padding: 0;}
+        	.password li{float: left;width:16.66%;height:50px;line-height:50px;border: 1px solid #dedede;text-align: center;font-size: 50px;}
+        	/*#password1{width: 60%;text-align: center;}*/
+        	#password{width: 1px;height:1px;padding: 0;margin:0 auto;border: 0;position: absolute;top: -100px;-webkit-text-security:disc;}
+		</style>
+		</head>
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">支付</h1>
+		</header>
+		<div class="mui-content">
+			<div class="commodity">
+				<p id="price">&yen;0.00</p>
+				<p class="mui-text-center">请输入支付密码</p>
+				
+				<ul class="password">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					
+				</ul>
+				<input id="password" type="number" name="password" maxlength="6">
+				<script type="text/javascript">
+					$(".password").click(function(){
+						$("input[name = 'password']").val("");
+						$("#password").focus();
+						$(".password li").text("");
+					});
+					$("#password").on("input",function(e){ //标签为password下的input添加oninput事件
+						var number = 6;   //定义输入最大值
+						var pw = $("#password").val(); //定义pw为name是password的input框的输入值
+						var list = $(".password li");  //定义list是li
+						for(var i = 0; i < number ; i++){    //for循环遍历将·放入li标签
+							if(pw[i]){
+								$(list[i]).text("•");
+							}else{
+								$(list[i]).text("");
+							};
+						};
+					});
+					
+				</script>
+						
+						
+						
+						<!--<input type="password" name="" id="password1" value="" maxlength="6" oninput="var patrn = /[^\d]/g;if(patrn.exec(value) != null){mui.toast('请输入数字')};value=value.replace(/[^\d]/g,'');"/>-->
+				<div id="edit">
+					<div class="mui-content-padded">
+						<button id='nextStep' class="mui-btn mui-btn-block mui-btn-primary" v-on:click="CheckPwd">确认</button>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	
+	<script type="text/javascript">	
+		mui.init();
+		mui.back=function () {
+			var id = getUrlParam("id");   //获取地址参数
+			mui.toast("取消支付");
+			setTimeout(function(){//延后显示可避免低端机上动画时白屏
+				mui.openWindow(openWinParam_back('payment_method.html?id='+id));
+				self.close();
+			},200);
+		}
+
+		var vm = new Vue({
+			el:'#edit',
+			data:{
+				editPwd:[]
+			},
+			created: function(){
+				var Id = getUrlParam("id");   //获取地址参数
+				this.getDetails(Id);
+			},
+			methods:{
+
+				getDetails :function(id){	
+					var that = this;
+					that.$http.post('/o2app/getOrderDetails',{'order_id':id}, VUE_HEADER).then(function(response){
+						
+						var json  = toJSON(response.data);
+//							this.Details = json.data[0];
+						$("#price").html('&yen;'+json.data[0].total_prices);
+					})	
+				},
+				CheckPwd:function(){
+					
+					//todo:
+//						var pwd = this.editPwd.join("");
+					var pwd = $("#password").val();
+					
+					if(pwd.length<6){
+						mui.toast("请输入六位数字");
+						$('#password').val('');
+						$(".password li").text('');
+						return;
+					}
+					
+					var patrn = /^(-)?\d+(\.\d+)?$/;
+				    if (patrn.exec(pwd) == null || pwd == "") {
+				        mui.toast("密码只能是6位数字");
+				        $('#password').val('');
+				        $(".password li").text('');
+				        return;
+				    }
+				    
+					var that = this;
+					that.$http.post('/o2app/checkPayPassword',{'paypassword':pwd}, VUE_HEADER).then(function(response){
+						var json  = toJSON(response.data);
+						if(json.result==0){
+							mui.toast(json.msg);
+								$('#password').val('');
+						        return;
+						}else{
+							var id = getUrlParam("id");   //获取地址参数
+							var type = getUrlParam("type");
+							that.$http.post('/o2app/cashPayments',{'order_id':id,'type':type}, VUE_HEADER).then(function(response){
+								var json  = toJSON(response.data);
+								if(json.result==0){
+									mui.toast(json.msg);
+									setTimeout(function(){//延后显示可避免低端机上动画时白屏
+										mui.openWindow(openWinParam('payment_method.html?id='+id));
+										self.close();
+									},200);
+								}else{
+									
+									mui.toast("支付成功！");
+									setTimeout(function(){//延后显示可避免低端机上动画时白屏
+										mui.openWindow(openWinParam('buy_success.html?id='+json.data));
+										self.close();
+									},200);
+								}
+								
+							})
+							
+						}
+						
+					})
+				
+				}
+			}
+		});
+	</script>
+</body>
+</html>	

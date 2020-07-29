@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link href="css/style.css" rel="stylesheet" />-->
+		<link href="css/base.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/payment.js"></script>
+		<style>
+			.mui-bar-nav~.mui-content{padding-top:56px;}
+			ul,li{margin: 0;padding: 0;list-style: none;}
+			.mui-radio input[type=radio]:checked:before {content: '\e442';color:#01CC53 ;}
+			.items{width: 100%;background: #fff;height: 164px;}
+			.price-box{padding:10px 10px 0px 10px;}
+			input[type=text].input-price{height:50px;line-height:50px;border: 1px solid #C9C9C9;}
+			.price li{float: left;width: 30%;height: 60px;line-height: 60px;margin:20px 0 0px 10px;border: 1px solid #E6E6E6;text-align: center;border-radius: 5px;color: #323232;}
+			.price .active{border: 1px solid #0DBC6D;color: #0DBC6D;}
+			.mui-input-group .mui-input-row:after{height: 0px;}
+			.mui-input-group .mui-input-row{border-bottom: 1px solid #E5E5E5;height: 50px;line-height: 50px;font-size: 16px;color: #232323;}
+			.mui-radio input[type=radio]{top: 10px;}
+			.btn{clear: both;width: 90%;margin:10px 0;height: 48px;line-height: 48px;padding: 0;margin-top:24%;left: 5%;background-color:#02BB82;color: #FFF;font-size: 16px;border: none;}
+			.mui-input-group:after{height: 0;}
+			.dn{display:none!important;}
+			body{background-color: #FFF;}
+			
+			.icon{width: 30px;height: 30px;float: left;}
+			.icon img{width: 100%;}
+			.icon_text{display:block;float:left;margin: 6px 0 0 8px;}
+		</style>
+	</head>
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">现金充值</h1>
+		</header>
+
+		<div class="mui-content" id="recharge">
+		    <form class="mui-input-group">
+				<div class="price-box mui-hidden">
+					<input v-model.trim="money" type="text" class="input-price" placeholder="充值金额" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();"/>
+				</div>
+		        <div class="items">
+		        	<ul class="price">
+		        		<li v-on:click="chooseMoney(1200)" v-bind:class="{active:money==1200}">1200元</li>
+		        		<li v-on:click="chooseMoney(3000)" v-bind:class="{active:money==3000}">3000元</li>
+		        		<li v-on:click="chooseMoney(6000)" v-bind:class="{active:money==6000}">6000元</li>
+		        		<li v-on:click="chooseMoney(10000)" v-bind:class="{active:money==10000}">10000元</li>
+		        		<!-- <li v-on:click="chooseMoney('')" v-bind:class="{active:money!=1200&&money!=3000&&money!=6000&&money!=10000}">其他</li> -->
+		        	</ul>
+		        </div>
+		        <div class="mui-input-row mui-radio">
+					<label style="font-size: 14px;color: #7C7C7C;">请选择支付方式</label>
+		        </div>
+		        <div class="mui-input-row mui-radio">
+					<label>
+						<div class="icon">
+							<img src="images/wechat.png"/>
+						</div>
+						
+						<span class="icon_text">微信支付</span>
+					</label>
+					<input name="alipay" type="radio" value="wxpay" v-model="pay_type">
+				</div>
+		        <div class="mui-input-row mui-radio">
+					<label>
+						<div class="icon">
+							<img src="images/alipay.png"/>
+						</div>
+						
+						<span class="icon_text">支付宝支付</span>
+					</label>
+					<input name="weixin" type="radio" value="alipay" v-model="pay_type">
+				</div>
+				<!--<div class="mui-input-row mui-radio">
+					<label>快捷支付</label>
+					<input name="fast" type="radio" value="fast" v-model="pay_type">
+				</div>-->
+				<button type="button" class="btn" v-on:click="goPay">
+					<span class="info" v-bind:class="{dn:waitForPaying==0}">立即支付 &yen;<span class="money-text" v-text="money"></span></span>
+					<span class="waiting" v-bind:class="{dn:waitForPaying==1}">正在支付，请稍后</span>						
+				</button>
+		    </form>
+		</div>
+
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var old_back = mui.back;
+				mui.back = function() {
+					//var wobj = plus.webview.getWebviewById("account_details");
+					//wobj.reload(true);
+					old_back();
+				}
+				// 获取支付通道  
+				plus.payment.getChannels(function(channels){
+					vueM.$data.channels = channels;
+					//channel=channels[0];
+					//console.log(JSON.stringify(channels));
+				},function(e){  
+					alert("获取支付通道失败："+e.message);  
+				}); 
+			});
+			
+			var vueM = new Vue({
+				el:'#recharge',
+				data:{
+					money : 10000,
+					pay_type : "wxpay",
+					channels : null,
+					pay_url : {
+						// "alipay":"/O2App2/getMobileAliPayOrder",
+						// "wxpay":"/O2App2/getMobileWxPayOrder"
+						"alipay":"/O2App2/getMobileAliPayOrder",
+						"wxpay":"/O2App2/makeWxAppChargeOrder"
+					},
+					query_pay_url : {
+						// "alipay":"/O2App2/queryMobileAliPayOrder",
+						// "wxpay":"/O2App2/queryMobileWxPayOrder"
+						"alipay":"/O2App2/queryMobileAliPayOrder",
+						"wxpay":"/O2App2/queryWxPayOrder"
+					},
+					waitForPaying : 1
+				},
+				created: function(){
+					var money = getUrlParam("money");   //获取地址参数
+					this.money = money;
+				},
+				methods:{
+					chooseMoney : function(money){
+						this.money = money;
+					},
+					goPay : function(){
+						var _this = this;
+						var options = {
+							paytype:this.pay_type,
+							purpose:"charge",
+							data:{'money':this.money},
+							addOrderCallback:function(){
+								
+							},
+							queryOrderCallback: function(options){
+								mui.back();
+							},
+							failCallback:function(){
+								plus.nativeUI.closeWaiting();
+							}
+						};
+						goPay(options);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>	

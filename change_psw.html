@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link href="css/style.css" rel="stylesheet" />-->
+		<link href="css/base.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<!--<script type="text/javascript" src="js/common.js"></script>-->
+		<script src="js/app.js"></script>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/base.js"></script>
+		<style>
+			.area{margin:20px auto 0px auto}
+			.mui-input-group:first-child{margin-top:20px}
+			.mui-input-group label{width:22%}
+			.mui-input-row label~input,.mui-input-row label~select,.mui-input-row label~textarea{width:78%}
+			.mui-checkbox input[type=checkbox],.mui-radio input[type=radio]{top:6px}
+			.mui-bar-nav~.mui-content {padding-top: 55px;}
+			.mui-content-padded{margin-top:25px}
+			.mui-btn{padding:10px}
+			.mui-input-row label~input,.mui-input-row label~select,.mui-input-row label~textarea{margin-top:1px}
+			
+			.mui-input-group{background-color:transparent;}
+			.mui-input-group span{display:block;padding:15px 0 0 10px;margin-bottom:15px;}
+			.mui-input-group:before,.mui-input-group .mui-input-row:after,.mui-input-group:after{background-color:transparent;}
+			.mui-input-group .mui-input-row{margin:0 10px;}
+			.mui-input-group input,.mui-input-group textarea{border:0;border-radius:0;background-color:transparent;-webkit-box-shadow:none;box-shadow:none;border:1px solid #e5e5e5;border-radius:5px;height:38px;background:#FFF;}
+			.mui-input-row .mui-input-clear~.mui-icon-clear, .mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech{top:-7px;}
+			.mui-content-padded em{color:#686868;margin-top:13px;}
+			
+			
+        	.mui-btn-primary{background: linear-gradient(to bottom right, #01D068,#02B887);border: none!important;}
+		</style>
+		</head>
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改密码</h1>
+		</header>
+		<div class="mui-content" id="edit">
+			<form class="mui-input-group">
+				<span>新密码：</span>				
+				<div class="mui-input-row mui-password">
+					<input id="psw1" type="password" class="mui-input-clear mui-input mui-input-password" placeholder="6-20位，不能与旧密码相同" v-model.trim="editPwd.password">
+				</div>
+				
+				<span>确认新密码</span>				
+				<div class="mui-input-row mui-password">
+					<input id="psw2" type="password" class="mui-input-clear mui-input mui-input-password" data-input-password="3" placeholder="两次密码必须一致" v-model.trim="editPwd.re_password">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button id='nextStep' class="mui-btn mui-btn-block mui-btn-primary" v-on:click="geteditPwd">确认</button>
+				<em>设置成功后，下次可以直接使用您的手机号与该密码登录账户</em>
+			</div>
+		</div>
+		
+	
+		<script type="text/javascript">	
+			mui.init();
+//			var oldback = mui.back;
+//			mui.back = function() {
+//				mui.currentWebview.opener().show('pop-out');
+//			    oldback();
+//			}
+			new Vue({
+				el:'#edit',
+				data:{
+					editPwd:{
+						password:"",
+						re_password:""
+					},
+					url:'/o2app/modifyPassword'
+				},
+				methods:{
+					geteditPwd:function(){
+						var pwd=this.editPwd.password,
+							re_pwd=this.editPwd.re_password;
+						//若当前input为空，则alert提醒 
+						if(!pwd || !re_pwd)
+						{
+						  
+							mui.alert("密码不允许为空");
+							return;
+						}
+						else if(pwd!=re_pwd)
+						{ 
+							mui.alert("两次密码不一致！请重新输入");
+							return;
+						}
+						else if(pwd.length<6||pwd.length>20||re_pwd.length<6||re_pwd.length>20)
+						{
+							mui.alert("密码长度不符合要求！请重新输入");
+							return;
+						}
+						
+						this.$http.post(this.url,{password:pwd,re_password:re_pwd,type:1},VUE_HEADER).then(function(res){
+							var json=toJSON(res.data);
+							if(json.result == 1)
+							{
+								this.$http.post('/o2app/m_logout',{},VUE_HEADER).then(function(res){
+									clearLogin();
+									mui.alert("密码重置成功", " ","确定", function(e) {						   
+					      				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+											mui.openWindow(openWinParam("login.html"));
+											self.close();
+	//								location.href="login.html";
+										},100);
+								})			
+							})
+//							var param = openWinParam('login.html');
+//							if(param.extras){
+//								param.extras.forbidBack = 1;
+//							}else{
+//								param.extras = {forbidBack:1};
+//							}
+//							mui.openWindow(param,false);
+//							}
+//							else
+//							{
+//								alert(json.msg);
+//							}
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>	

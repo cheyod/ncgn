@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/shoppingcart.css"/>
+	<link rel="stylesheet" href="css/menu.css"/>
+	<style type="text/css">
+		body{background-color: #fff;}
+		ul,li{list-style: none;margin: 0;padding: 0;}
+		.left11{left: 11px;right: 0;}
+		.mui-numbox{padding: 0;width: 90px;height: 28px;border: none;}
+		.mui-numbox [class*=btn-numbox], .mui-numbox [class*=numbox-btn] {width: 30px;background-color:#F5F5F5}
+		.mui-bar-tab{bottom:49px}
+		.shopCartItem:last-child{margin-bottom: 100px;}
+		.gouwuche{width: 100%;position: absolute;top:20%;}
+		.shopping_null{width: 50%;margin: auto;}
+		.gouwuche img{width: 100%;}
+		.gouwuche p{font-size: 14px;font: "微软雅黑";text-align: center;margin-top: 31px;margin-bottom: 46px;color: #969696;}
+		.gouwuche a{display: block;width: 240px;height: 40px;line-height: 40px;background-color: #06B388;text-align: center;color: #FFF;font-size:14px;font-weight:bold;border-radius: 5px;margin: auto;}
+		
+	</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {	
+				mui.oldBack = mui.back;
+					var backButtonPress = 0;
+					mui.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					}
+//					var currentView = plus.webview.currentWebview();
+//					currentView.show('none', 500);
+//					plus.nativeUI.closeWaiting();
+				});
+		</script>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">购物车</h1>
+		    <a class="mui-pull-right" id="showDel">编辑</a>
+		</header>
+		<div class="menu clearfix" id="menu">
+			<ul>
+				<li v-on:click="indexBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/vegetable_market2.png" alt="" />
+						</div>
+						<p>菜市</p>
+					</a>
+				</li>
+				<li v-on:click="informationBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/information.png" alt="" />
+						</div>
+						<p>资讯</p>
+					</a>
+				</li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+				<li>
+					<a href="javascript:;">
+						<div class="menu_img">
+							<span class="mui-badge mui-badge-danger" id="Count" v-if="Count!=0"></span>
+							<img src="images/shopping_cart_n1.png" alt="" />
+							
+						</div>
+						<p>购物车</p>
+					</a>
+				</li>
+				<li v-on:click="myBtn">
+					<a href="javascript:;">
+						<div class="menu_img">
+							<img src="images/my.png" alt="" />
+						</div>
+						
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="mui-bar mui-bar-tab" id="goumai" style="background-color: #eee;">      
+	    	<p class="mui-checkbox" style="float: left;">
+	        	<input class="left11" style="margin: 10px 0;" type="checkbox" name="checkAll"/>
+	        	<div style="float: left;margin-left:40px;line-height: 50px;font-size: 14px;color: #525252;">全选</div>
+	    	</p>             
+	        <p class="hj">
+            	合计:&yen;<span id="hj">0</span>
+	        </p>
+	        <p class="buyNow" style="float: right;" id="buy">
+	            <!--<button id="buyNowbtn" class="buyNowbtn" disabled="buyNowbtn" v-on:click="setOrder">立即购买</button>-->
+	            <button id="buyNowbtn" class="buyNowbtn" v-on:click="setOrder">立即购买</button>
+	        </p>
+	    </div>
+    	<div class="mui-content" style="margin-top: 10px;background-color: #fff;" id="shoppinglist">
+            <div class="shopCartItem mui-checkbox" v-for="data in shoppinglists">
+                <input class="iptSelect left11" type="checkbox" name="items" v-bind:value="data.goods_id">
+                <img v-bind:src="data.cover_img==null ? 'images/img_2.png' : data.cover_img|RemoteImage"/>
+                <div class="goodsInfo" style="display: block;">
+                    <p class="shopTitle">{{data.name}}</p>
+                    <p class="shopPrice"> <span>&yen;</span><span>{{data.unitprice}}</span></p>
+                    <div class="shopnum">
+                		<!--<div class="jian" v-if="data.num !=1" v-on:click="data.num--">-</div>-->
+                		<div class="jian" v-on:click="setcart(data.goods_id,data.supply_id,data.num,-1)">-</div>
+                		<div class="num">{{data.num}}</div>
+                		<div class="jia" v-on:click="setcart(data.goods_id,data.supply_id,data.num,1)">+</div>
+                	</div>
+	                <!--<div class="mui-numbox shopnum" data-numbox-step="{{'1'}}" data-numbox-min='0' data-numbox-max='100'>
+				  		<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+				  		<input class="mui-numbox-input" type="number" />
+				  		<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+					</div>-->
+                </div>
+                <div class="goodsOpreation">
+                    <span class="goodsCount">商品数量:{{data.num}}</span>
+                    
+                    <span class="shopDel" v-on:click="deleteCommodity(data.id)">删除</span>
+                </div>
+            </div>
+			<div v-if="shoppinglists.length == 0" class="gouwuche">
+				<div class="shopping_null">
+    				<img src="images/shopping_u.png"/>
+    			</div>
+				<p>购物车是空的,快去选购心爱的商品吧</p>
+				<a href="index.html">去逛逛？</a>
+			</div>
+       
+		    
+		    
+		</div>
+	</body>
+	<script src="js/shoppingcart.js"></script>
+	<script src="js/jquery-1.7.1.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/menu.js"></script>
+	<script type="text/javascript">
+		new Vue({
+				el: "#shoppinglist",
+				data:{
+					shoppinglists:[],
+					Ids:[],
+					isCheckedAll: false
+				},
+				created: function(){
+					this.getShoppingList();
+				},
+				methods:{
+					
+					getShoppingList :function(){
+							
+						var that = this;
+						that.$http.post('/o2app/getShoppingCart',{}, VUE_HEADER).then(function(response){
+							
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast(json.msg);
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('login.html'));
+									self.close();
+								},200);
+							}
+							this.shoppinglists = json.data;
+							if(this.shoppinglists.length == 0){
+								$("#goumai").hide();
+							}else{
+								$("#goumai").show();
+							}
+						})	
+					},
+					deleteCommodity :function(id){
+						var btnArr=['确定','再看看'];
+						var that = this;
+						mui.confirm(' ','确定删除该商品？',btnArr,function(e){
+					        if(e.index==0){
+					            
+								that.$http.post('/o2app/deleteCommodity',{'id':id}, VUE_HEADER).then(function(response){
+									var json  = toJSON(response.data);
+									if(json.result == 0){
+										mui.toast(msg);
+									}else{
+										mui.toast("删除成功");
+										this.getShoppingList();
+										menu.getCartCount();
+									}
+								})
+					        }
+					    });
+					},
+					setcart:function(id,supply_id,count,cz){
+						if(cz == -1){
+							if(count <= 1){
+								mui.toast("商品数量不能低于1");
+								return;
+							}else{
+								count--;
+							}
+							
+						}else{
+							count++;
+						}
+						var that = this;
+						that.$http.post('/o2app/setShoppingCart',{'goods_id':id,'supply_id':supply_id,'count':count}, VUE_HEADER_JSON).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast(json.msg);
+							}else{
+								
+								this.getShoppingList();
+								mui.toast("正在计算");
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									checkCart();
+								},500);
+								
+							}
+						});
+					}
+				}
+			});
+			new Vue({
+				el:"#buy",
+				data:{
+					Ids:[]
+				},
+				methods:{
+					setOrder:function(){
+						this.Ids = goodsIdArr;
+
+						if(this.Ids==""){
+							mui.toast("请选择商品！");
+							return;
+						}
+						var total_prices = $("#hj").html();
+						var that = this;
+						that.$http.post('/o2app/addOrderList',{'items':this.Ids,'total_prices':total_prices}, VUE_HEADER_JSON).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast(json.msg);
+							}else{
+								mui.toast("创建订单成功");
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('order_details.html?id='+json.data));
+									self.close();
+								},1000);
+							}
+						});
+					}
+				}
+			});
+			
+			
+	</script>
+</html>

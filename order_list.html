@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+
+			* { touch-action: none; }
+			ul,li{list-style: none;}
+			.row{height: 48px;background-color: #FFF;margin: 0;padding: 0;width: 100%;}
+			.row li{float: left;width: 16%;line-height: 46px;text-align: center;font-size: 13px;margin: 0 2%;}
+			.row li a{color: #666;display: block;width: 100%;height: 100%;}
+			.active{border-bottom: 4px solid #00BD52;}
+			.list{display: block;background-color: #FFF;margin-top: 4px;border-top:1px solid #eee;border-bottom: 1px solid #eee;}
+			.list .order_id{display:block;float: left;width: 50%;height: 40px;line-height: 40px;font-size:14px;padding-left: 10px;color: #000;}
+			.list .type{display:block;float: right;width:50%;font-size:12px;color: #DD2727;line-height: 40px;text-align: right;padding-right: 14px;height: 40px;}
+			.list_detail{clear:both;height: 90px;background-color: #F5F5F5;border-top: 1px solid #eee;}
+			.list_img{width: 30%;height: 77px;margin: 5px 2% 5px 2%;float: left;}
+			.list_img img{width: 100%;height: 100%;}
+			.list_text{float: left;width: 46%;color: #3E4245;font-size: 15px;margin-top: 5px;height: 66px;overflow: hidden;}
+			.list_price{float: left;width: 16%;margin: 5px 0 0 0;}
+			.list_price span{display: block;text-align: right;}
+			.list p{clear: both;text-align: right;margin: 0;line-height: 37px;padding-right: 12px;font-size: 12px;color: #404548;}
+			.btn{clear: both;text-align: right;padding-right: 10px;background-color: #FFF;width: 100%;border-bottom: 1px solid #ddd;}
+			.btn button{margin: 6px 0;}
+			
+			.list_null{width: 100%;background-color: #fff;}
+			.list_null .shopping_null{width: 50%;margin: auto;}
+			.list_null img{width: 100%;margin-top: 40%;}
+			.list_null p{font-size: 14px;font: "微软雅黑";text-align: center;margin-top: 31px;margin-bottom: 46px;color: #969696;}
+			.list_null a{display: block;width: 240px;height: 40px;line-height: 40px;background-color: #06B388;text-align: center;color: #FFF;font-size:14px;font-weight:bold;border-radius: 5px;margin: auto;margin-bottom: 45%;}
+			
+			
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{width: 100%;height: 50px;position: initial;}
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{display: block;padding: 0;}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{color: #00BD52;border-bottom: 4px solid #00BD52;}
+			.mui-segmented-control .mui-control-item{line-height: 45px;}
+			
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.7.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.back = function() {
+				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+					mui.openWindow(openWinParam_back('myInfo.html'));
+					self.close();
+				},200);
+			}
+		</script>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的订单</h1>
+		</header>
+		<ul class="row" style="position:fixed;top: 65px;z-index: 9999;" id="nav">
+	        <li v-for="(item,index) in liList" v-on:click="addClass(index)" v-bind:class="{ active:index==current}">{{item.title}}</li>
+		</ul>
+		<div class="mui-scroll-wrapper" style="margin-top: 110px;">
+		    <div class="mui-scroll">
+		    	<script type="text/javascript">
+					$('#scroll').scroll({
+						indicators: true //是否显示滚动条
+					});
+					mui('.mui-scroll-wrapper').scroll({
+						deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+						scrollY: true, //是否竖向滚动
+						scrollX: false, //是否横向滚动
+						indicators: false, //是否显示滚动条
+						bounce: true //是否启用回弹
+					});
+				</script>
+            	<div id="order_list">
+		    		<div v-for="list in orderList" style="margin-top: 10px;">
+		    			<a href="javascript:;" class="list" v-on:click="getOrderDetails(list.order_id)">
+		    				<span class="order_id">{{list.order_id}}</span>
+			    			<span class="type" v-if="list.pay_statue == 0" style="color: red;">未支付</span>
+			    			<span class="type" v-if="list.pay_statue == 1" style="color: #ff9966;">未验证</span>
+			    			<span class="type" v-if="list.pay_statue == 2" style="color: #ccc;">已取消</span>
+			    			<span class="type" v-if="list.pay_statue == 3" style="color: #00BD52;">已完成</span>
+			    			<div class="list_detail" v-for="item in list.items">
+					    		<div class="list_img">
+					    			<img v-bind:src="item.cover_img|RemoteImage"/>
+					    		</div>
+					    		<div class="list_text">
+					    			{{item.product_name}}
+					    		</div>
+					    		<div class="list_price">
+					    			<span style="font-size:13px;color: #3D4245;font-weight: bold;">&yen;{{item.price}}</span>
+					    			<!--<span style="font-size:15px;color: #999;text-decoration: line-through;">&yen;123</span>-->
+					    			<span style="font-size:13px;color: #999;">x{{item.nums}}</span>
+					    		</div>
+					    		
+					    	</div>
+					    	<p>共{{list.items.length}}件商品&nbsp;&nbsp;&nbsp;合计:&yen;{{list.total_prices}}</p>
+					    	</a>
+					    	<div class="btn">
+					    		
+					    		<button type="button" class="mui-btn mui-btn-outlined" v-if="list.pay_statue == 0||list.pay_statue == 1" v-on:click="CancelOrder(list.order_id,list.pay_statue)">取消订单</button>
+					    		<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" v-if="list.pay_statue == 0" v-on:click="PaymentOrder(list.order_id)">去支付</button>
+					    		<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" v-if="list.pay_statue == 1" v-on:click="VerificationOrder(list.order_id)">去验证</button>
+					    		<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" v-if="list.pay_statue == 2" v-on:click="DeleteOrder(list.order_id,list.pay_statue)">删除订单</button>
+					    	</div>
+			    		
+		    		</div>
+		    		<div v-if="orderList.length == 0" class="list_null">
+		    			<div class="shopping_null">
+		    				<img src="images/shopping_u.png"/>
+		    			</div>
+						<p>列表是空的,快去选购心爱的商品吧</p>
+						<a href="index.html">去逛逛？</a>
+						<br />
+					</div>
+		    	</div>
+			</div>
+		</div>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/base.js"></script>
+		<script type="text/javascript">
+			
+		var list = new Vue({
+				el: "#order_list",
+				data:{
+					orderList:[]
+				},
+				created: function(){
+//					this.getOrderListAll();
+				},
+				methods:{
+					getOrderListAll :function(){
+						var that = this;
+						that.$http.post('/o2app/getOrderList',{}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast(json.msg);
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('login.html'));
+									self.close();
+								},200);
+							}else{
+								this.orderList = json.data;
+							}
+						})	
+					},
+					
+					getOrderList :function(status){
+						var that = this;
+						that.$http.post('/o2app/getOrderList',{'order_status':status}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							if(json.result==0){
+								mui.toast(json.msg);
+								setTimeout(function(){//延后显示可避免低端机上动画时白屏
+									mui.openWindow(openWinParam('login.html'));
+									self.close();
+								},200);
+							}else{
+								this.orderList = json.data;
+							}
+						})	
+					},
+					
+					getOrderDetails: function(id){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('order_details.html?id='+id+'&class='+Li.current));
+							self.close();
+						},200);
+					},
+					
+					CancelOrder:function(id,status){
+						var btnArr=['确定','再看看'];
+						var that = this;
+						mui.confirm(' ','确定取消该订单？',btnArr,function(e){
+					        if(e.index==0){
+					            
+								that.$http.post('/o2app/CancelOrder',{'order_id':id}, VUE_HEADER).then(function(response){
+									var json  = toJSON(response.data);
+									if(json.result==0){
+										mui.toast(json.msg);
+									}else{
+										mui.toast(json.msg);
+										
+										if(Li.current==0){
+											this.getOrderListAll();
+										}else{
+											this.getOrderList(status);
+										}
+									}
+								})
+					        }
+					    });
+							
+					},
+					PaymentOrder:function(id){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('payment_method.html?id='+id));
+							self.close();
+						},200);
+					},
+					VerificationOrder:function(id){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('buy_success.html?id='+id));
+							self.close();
+						},200);
+					},
+					DeleteOrder:function(id,status){
+						var btnArr=['确定','再看看'];
+						var that = this;
+						mui.confirm(' ','确定删除该订单？',btnArr,function(e){
+					        if(e.index==0){
+					        	
+								that.$http.post('/o2app/DeleteOrder',{'order_id':id}, VUE_HEADER).then(function(response){
+									var json  = toJSON(response.data);
+									if(json.result==0){
+										mui.toast(json.msg);
+									}else{
+										mui.toast(json.msg);
+										if(Li.current==0){
+											this.getOrderListAll();
+										}else{
+											this.getOrderList(status);
+										}
+									}
+								});
+					        }
+					    });
+						
+					}
+				}
+			});
+			
+			var Li = new Vue({
+				el:"#nav",
+				data:{
+					current:0,
+					liList:[
+						{title:'全部'},
+						{title:'待付款'},
+						{title:'待验证'},
+						{title:'已取消'},
+						{title:'已完成'}
+					]
+				},
+				created:function(){
+					// 初始化选项卡
+					var item = getUrlParam("class");   //获取地址参数
+					this.current = item;
+					if(this.current==0){
+						list.getOrderListAll();
+					}else{
+						var status = this.current-1;
+						list.getOrderList(status);
+					}
+				},
+				methods:{
+					addClass:function(index){
+						this.current=index;
+						if(this.current==0){
+							list.getOrderListAll();
+						}else{
+							var status = this.current-1;
+							list.getOrderList(status);
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

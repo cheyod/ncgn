@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.fl{float: left;}
+			.fr{float: right;}
+			.list{display: block;background-color: #FFF;margin-top: 4px;border-top: 1px solid #DDD;border-bottom: 1px solid #DDD;}
+			.list_detail{height: 90px;}
+			.list_img{width: 30%;height: 77px;margin: 5px 2% 5px 2%;float: left;}
+			.list_img img{width: 100%;height: 100%;}
+			.list_text{float: left;width: 47%;color: #3E4245;font-size: 15px;margin-top: 5px;height: 66px;overflow: hidden;}
+			.list_price{float: left;width: 16%;margin: 5px 0 0 0;}
+			.list_price span{display: block;text-align: right;}
+			.click{clear: both;height: 85px;border-top:1px solid #DCDCDC;}
+			.click .pay_type{display: block;float: left;margin: 20px 0 0 10px;color: #1C1C1C;}
+			.click a{float: right;margin: 24px 10px 0 0;width: 80px;}
+			.price{font-size: 17px;color: #F25D61;font-weight: bold;}
+			.items{width: 100%;background: #fff;border-top:1px solid #E3E5E9;}
+			.items .row{height: 46px;line-height: 46px;padding: 0 10px;font-size: 14px;color: #262629;border-bottom: 1px solid #E3E5E9}
+			.items .address{padding: 15px 0 0 32px;font-size: 16px;color: #252525;font-weight: bold;}
+			.btn{clear: both;width: 90%;height: 48px;line-height: 48px;padding: 0;left: 5%;background-color:#02BB82;color: #FFF;font-size: 16px;border: none;margin: 10px 0;}
+			
+			
+		</style>
+	</head>
+
+	<body class="mui-plus mui-statusbar mui-statusbar-offset">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">订单详情</h1>
+		</header>
+		<div class="mui-content" id="details">
+		    <div class="list">
+		    	<div v-for="data in Details">
+		    		<div class="list_detail" v-for="item in data">
+			    		<div class="list_img">
+			    			<img v-bind:src="item.cover_img|RemoteImage">
+			    		</div>
+			    		<div class="list_text">
+			    			{{item.product_name}}
+			    		</div>
+			    		<div class="list_price">
+			    			<span style="font-size:15px;color: #3D4245;font-weight: bold;">&yen;{{item.price}}</span>
+			    			<span style="font-size:13px;color: #999;">x{{item.nums}}</span>
+			    		</div>
+			    	</div>
+		    	</div>
+		    	
+		    	
+		    	<div class="click">
+		    		<span class="pay_type">
+		    			劵码:{{Details.order_id}}<br />
+		    			<span v-if="Details.pay_statue == 0">未支付</span>
+		    			<span v-if="Details.pay_statue == 1">未提货</span>
+		    			<span v-if="Details.pay_statue == 2">已取消</span>
+		    			<span v-if="Details.pay_statue == 3">已完成</span>
+		    		</span>
+		    		<a href="#" class="mui-btn mui-btn-danger" v-if="Details.pay_statue == 0" v-on:click="PaymentOrder(Details.order_id)">支付</a>
+		    		<a href="#" class="mui-btn mui-btn-danger" v-if="Details.pay_statue == 1" v-on:click="VerificationOrder(Details.order_id)">验证</a>
+		    		<a href="#" class="mui-btn mui-btn-danger" v-if="Details.pay_statue == 2" v-on:click="DeleteOrder(Details.order_id)">删除</a>
+		    	</div>
+		    </div>
+		    <div class="items" style="margin-top: 5px;">
+				<div class="row">
+					<div class="fl">
+						订单详情
+					</div>
+				</div>
+				<div class="row">
+					<div class="fl">
+						订单号
+					</div>
+					<div class="fr">{{Details.order_id}}</div>
+				</div>
+				<div class="row">
+					<div class="fl">
+						购买手机号
+					</div>
+					<div class="fr">{{Details.phone}}</div>
+				</div>
+				<div class="row">
+					<div class="fl">
+						商品总额
+					</div>
+					<div class="price fr">&yen; {{Details.total_prices}}</div>
+				</div>
+			</div>
+			<a style="display:block;width:100%;text-align: center;color: #999;position: absolute;font-size: 14px;padding: 30px 0;" id="Delivery">申请送货</a>
+
+			<!--<div class="items" style="margin-top: 5px;">
+				<p class="address">
+					<span>赵宇华</span>
+					<span style="margin: 0 11px 0 24px">15818946968</span>
+					<span style="width: 19px;line-height: 30px;background: #06B388;color: #FFF;padding: 5px;font-size: 13px;">默认</span>
+				</p>
+				<p style="padding: 0 0 10px 32px;font-size: 13px;color: #262629;font-weight: normal;margin: 0;">广东省茂名市茂南区官渡二路248号大院24号401</p>
+				
+				<a href="#" class="btn mui-btn">申请送货</a>
+			</div>-->
+		</div>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-resource.js"></script>
+		<script src="js/base.js"></script>
+		<script type="text/javascript">
+			mui.back=function () {
+				var item = getUrlParam("class");   //获取地址参数
+				if(item == null){
+					item = 0;
+				}
+				setTimeout(function(){//延后显示可避免低端机上动画时白屏
+					mui.openWindow(openWinParam_back('order_list.html?class='+item));
+					self.close();
+				},200);
+			}
+			new Vue({
+				el: "#details",
+				data:{
+					Details:[]
+				},
+				created: function(){
+					var Id = getUrlParam("id");   //获取地址参数
+					this.getDetails(Id);
+				},
+				methods:{
+					
+					getDetails :function(id){
+							
+						var that = this;
+						that.$http.post('/o2app/getOrderDetails',{'order_id':id}, VUE_HEADER).then(function(response){
+							var json  = toJSON(response.data);
+							this.Details = json.data[0];
+							if(this.Details.pay_statue == 1){
+								$("#Delivery").click(function(){
+									mui.openWindow(openWinParam('order_click.html?id='+id));
+									self.close();
+								});
+							}else{
+								$("#Delivery").hide();
+							}
+						})	
+					},
+					PaymentOrder:function(id){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('payment_method.html?id='+id));
+							self.close();
+						},200);
+					},
+					VerificationOrder:function(id){
+						setTimeout(function(){//延后显示可避免低端机上动画时白屏
+							mui.openWindow(openWinParam('buy_success.html?id='+id));
+							self.close();
+						},200);
+					},
+					DeleteOrder:function(id){
+						var btnArr=['确定','再看看'];
+						var that = this;
+						mui.confirm(' ','确定删除该订单？',btnArr,function(e){
+					        if(e.index==0){
+					        	
+								that.$http.post('/o2app/DeleteOrder',{'order_id':id}, VUE_HEADER).then(function(response){
+									var json  = toJSON(response.data);
+									if(json.result==0){
+										mui.toast(json.msg);
+									}else{
+										mui.toast(json.msg);
+										this.getOrderList();
+									}
+								});
+					        }
+					    });
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>
